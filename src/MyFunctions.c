@@ -24,11 +24,24 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
     return result;
 }
 
+void PixelsDrawLine(unsigned int *_pixelMemory, POINT2D point1, POINT2D point2, int color){
+
+}
+
 // Fill memory with randomly colored pixels
 void PixelsFillRand(unsigned int *_pixelMemory, int memoryLength)
 {
     for (int i = 0; i < memoryLength; i++)
     {
         *(_pixelMemory + i) = 0 + (float)rand() / RAND_MAX * (16777216); // 0xFFFFFF = 16777215
+    }
+}
+
+// Fill memory with a single color
+void PixelsFillSolid(unsigned int *_pixelMemory, int memoryLength, int color)
+{
+    for (int i = 0; i < memoryLength; i++)
+    {
+        *(_pixelMemory + i) = color;
     }
 }

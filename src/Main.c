@@ -10,11 +10,12 @@
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
 {
     // Setup
+    FreeConsole();
     srand((unsigned)time(NULL));
     globalRunning = 1;
 
     // Define window class
-    char CLASS_NAME[] = "GameWindow";
+    char *CLASS_NAME = "GameWindow";
     WNDCLASS window_class = {0};
     window_class.lpfnWndProc = WindowProc; // Communicates with windows, when yuo click on "X" windows sends a WM_CLOSE message
     window_class.hInstance = hInstance;
@@ -45,7 +46,8 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     HDC hdc = GetDC(window);
 
     // Inital pixel colors
-    PixelsFillRand(pixelMemory, windowWidth * windowHeight);
+    // PixelsFillRand(pixelMemory, windowWidth * windowHeight);
+    PixelsFillSolid(pixelMemory, windowWidth * windowHeight, ColorKrimzoFav);
 
     // Keep window open
     while (globalRunning)
