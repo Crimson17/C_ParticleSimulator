@@ -46,8 +46,12 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     HDC hdc = GetDC(window);
 
     // Inital pixel colors
-    // PixelsFillRand(pixelMemory, windowWidth * windowHeight);
+    //PixelsFillRand(pixelMemory, windowWidth * windowHeight);
     PixelsFillSolid(pixelMemory, windowWidth * windowHeight, ColorKrimzoFav);
+
+    POINT2D A = {100, 100};
+    POINT2D B = {500, -10};
+    PixelsDrawLine(pixelMemory, A, B, ColorWhite);
 
     // Keep window open
     while (globalRunning)
