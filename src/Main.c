@@ -51,7 +51,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 
     POINT2D A = {100, 100};
     POINT2D B = {500, -10};
-    PixelsDrawLine(pixelMemory, A, B, ColorWhite);
+    //PixelsDrawLine(pixelMemory, A, B, ColorWhite);    WIP
 
     // Keep window open
     while (globalRunning)
