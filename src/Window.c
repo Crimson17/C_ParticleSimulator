@@ -50,7 +50,9 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     PixelsFillSolid(_pixelMemory, _pixelMemoryLen, _ColorWhite);
 
     // User stuff
-    MyMain();
+    if(MyMain()){
+        return -1;
+    }
 
     // Keep window open
     while (globalRunning)
