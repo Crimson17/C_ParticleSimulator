@@ -6,24 +6,25 @@
 int globalRunning;
 int windowWidth;
 int windowHeight;
-void *pixelMemory;
+void *_pixelMemory;
+int _pixelMemoryLen;
 BITMAPINFO bitmap_info;
 
 #endif
 
 // Color macros
-#define ColorBlack 0x000000
-#define ColorWhite 0xFFFFFF
-#define ColorRed 0xFF0000
-#define ColorRedDark 0x770000
-#define ColorGreen 0x00FF00
-#define ColorGreenDark 0x007700
-#define ColorBlue 0x0000FF
-#define ColorBlueDark 0x000077
-#define ColorYellow 0xFFEE00
-#define ColorOrange 0xFF9900
-#define ColorCyan 0x00CC99
-#define ColorMagenta 0xFF00FF
-#define ColorBrown 0x804000
-#define ColorGray 0x7D7D7D
-#define ColorKrimzoFav 0x112233
+#define _ColorBlack 0x000000
+#define _ColorWhite 0xFFFFFF
+#define _ColorRed 0xFF0000
+#define _ColorRedDark 0x770000
+#define _ColorGreen 0x00FF00
+#define _ColorGreenDark 0x007700
+#define _ColorBlue 0x0000FF
+#define _ColorBlueDark 0x000077
+#define _ColorYellow 0xFFEE00
+#define _ColorOrange 0xFF9900
+#define _ColorCyan 0x00CC99
+#define _ColorMagenta 0xFF00FF
+#define _ColorBrown 0x804000
+#define _ColorGray 0x7D7D7D
+#define _ColorKrimzoFav 0x112233

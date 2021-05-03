@@ -24,20 +24,23 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
     return result;
 }
 
-void PixelsDrawLine(unsigned int *_pixelMemory, POINT2D point1, POINT2D point2, int color)
+void PixelsDrawLine(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, int color)
 {
     // Check if the coords are inside of the bounds
-    if(point1.x < 0 || point2.x < 0 || point1.x > windowWidth || point2.x > windowWidth){
+    if (point1.x < 0 || point2.x < 0 || point1.x > windowWidth || point2.x > windowWidth)
+    {
         printf("Point x coordinates are out of range, range.x -> 0 ~ %d\n", windowWidth);
         return;
     }
-    if(point1.y < 0 || point2.y < 0 || point1.y > windowHeight || point2.y > windowHeight){
+    if (point1.y < 0 || point2.y < 0 || point1.y > windowHeight || point2.y > windowHeight)
+    {
         printf("Point y coordinates are out of range, range.y -> 0 ~ %d\n", windowHeight);
         return;
     }
 
     // Calculate the vector and normalize to get the direction
     VECTOR2D tempVec = Vector_New(point1, point2);
+    float tempVecLen = Vector_Length(tempVec);
     VECTOR2D normVec = Vector_Normalize(tempVec);
 
     // Divide by 10 to get a better precision (the speed is not important yet..)
@@ -47,32 +50,41 @@ void PixelsDrawLine(unsigned int *_pixelMemory, POINT2D point1, POINT2D point2, 
     // Basically a dot that travels over the line path and changes the pixel colors
     POINT2D travelDot = {0};
     travelDot.x = point1.x;
-    travelDot.y= point1.y;
+    travelDot.y = point1.y;
 
     // Loop for dot travel
-    while ((int)travelDot.x != point2.x || (int)travelDot.y != point2.y)
+    for (int i = 0; i < (tempVecLen * 10); i++)
     {
-        *(_pixelMemory + ((int)travelDot.x + ((int)travelDot.y * windowWidth))) = color;
+        // Change pixel color
+        *(pixelMemory + ((int)travelDot.x + ((int)travelDot.y * windowWidth))) = color;
+        // Increment dot cords by the normalized vector
         travelDot.x += normVec.i;
         travelDot.y += normVec.j;
     }
 }
 
+void PixelsDrawTriangle(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, POINT2D point3, int color)
+{
+    PixelsDrawLine(pixelMemory, point1, point2, color);
+    PixelsDrawLine(pixelMemory, point2, point3, color);
+    PixelsDrawLine(pixelMemory, point3, point1, color);
+}
+
 // Fill memory with randomly colored pixels
-void PixelsFillRand(unsigned int *_pixelMemory, int memoryLength)
+void PixelsFillRand(unsigned int *pixelMemory, int memoryLength)
 {
     for (int i = 0; i < memoryLength; i++)
     {
-        *(_pixelMemory + i) = 0 + (float)rand() / RAND_MAX * (16777216); // 0xFFFFFF = 16777215
+        *(pixelMemory + i) = 0 + (float)rand() / RAND_MAX * (16777216); // 0xFFFFFF = 16777215
     }
 }
 
 // Fill memory with a single color
-void PixelsFillSolid(unsigned int *_pixelMemory, int memoryLength, int color)
+void PixelsFillSolid(unsigned int *pixelMemory, int memoryLength, int color)
 {
     for (int i = 0; i < memoryLength; i++)
     {
-        *(_pixelMemory + i) = color;
+        *(pixelMemory + i) = color;
     }
 }
 

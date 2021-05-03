@@ -10,7 +10,7 @@
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
 {
     // Setup
-    //FreeConsole();
+    FreeConsole();
     srand((unsigned)time(NULL));
     globalRunning = 1;
 
@@ -32,7 +32,8 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     windowHeight = rect.bottom - rect.top;
 
     // Allocate memory for the pixels
-    pixelMemory = VirtualAlloc(0, windowWidth * windowHeight * sizeof(unsigned int), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+    _pixelMemoryLen = windowWidth * windowHeight;
+    _pixelMemory = VirtualAlloc(0, _pixelMemoryLen * sizeof(unsigned int), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 
     // Pixel properties
     bitmap_info.bmiHeader.biSize = sizeof(bitmap_info.bmiHeader);
@@ -46,12 +47,10 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     HDC hdc = GetDC(window);
 
     // Inital pixel colors
-    //PixelsFillRand(pixelMemory, windowWidth * windowHeight);
-    PixelsFillSolid(pixelMemory, windowWidth * windowHeight, ColorKrimzoFav);
+    PixelsFillSolid(_pixelMemory, _pixelMemoryLen, _ColorWhite);
 
-    POINT2D A = {100, 100};
-    POINT2D B = {300, 0};
-    PixelsDrawLine(pixelMemory, A, B, ColorWhite);
+    // User stuff
+    MyMain();
 
     // Keep window open
     while (globalRunning)
@@ -65,10 +64,12 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
             DispatchMessage(&message);
         }
         // Render bits from the memmory to screen
-        StretchDIBits(hdc, 0, 0, windowWidth, windowHeight, 0, 0, windowWidth, windowHeight, pixelMemory, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
+        StretchDIBits(hdc, 0, 0, windowWidth, windowHeight, 0, 0, windowWidth, windowHeight, _pixelMemory, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
+
+        // Have to add function for dynamic updating and also int for fps!
     }
 
     // Free pixel memory
-    free(pixelMemory);
+    free(_pixelMemory);
     return 0;
 }
