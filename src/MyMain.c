@@ -7,6 +7,7 @@
 #include "..\include\MyStructs.h"
 #include "..\include\GlobalVars.h"
 
+// Gets called once before frame rendering starts
 int MyMain(void){
     PixelsFillSolid(_pixelMemory, _pixelMemoryLen, _ColorKrimzoFav);
 
@@ -19,6 +20,7 @@ int MyMain(void){
     return 0;
 }
 
+// Gets called ever frame update
 void FrameUpdate(MSG message){
     
 }
