@@ -24,6 +24,7 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
     return result;
 }
 
+// Draws a custom colored line on the window with the given points
 void PixelsDrawLine(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, int color)
 {
     // Check if the coords are inside of the bounds
@@ -63,6 +64,7 @@ void PixelsDrawLine(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, i
     }
 }
 
+// Draws a custom colored traingle on the window with the given points
 void PixelsDrawTriangle(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, POINT2D point3, int color)
 {
     PixelsDrawLine(pixelMemory, point1, point2, color);
@@ -88,6 +90,7 @@ void PixelsFillSolid(unsigned int *pixelMemory, int memoryLength, int color)
     }
 }
 
+// Creates a new vector from 2 given points
 VECTOR2D Vector_New(POINT2D point1, POINT2D point2)
 {
     VECTOR2D outputVector = {0};
@@ -96,6 +99,7 @@ VECTOR2D Vector_New(POINT2D point1, POINT2D point2)
     return outputVector;
 }
 
+// Returns a length 1 vector with the same direction as the given vector
 VECTOR2D Vector_Normalize(VECTOR2D inputVector)
 {
     VECTOR2D outputVector = {0};
@@ -104,11 +108,13 @@ VECTOR2D Vector_Normalize(VECTOR2D inputVector)
     return outputVector;
 }
 
+// Returns a length of a given vector
 float Vector_Length(VECTOR2D inputVector)
 {
     return sqrt(pow(inputVector.i, 2) + pow(inputVector.j, 2));
 }
 
+// Prints the vector to the terminal
 void Vector_Print(VECTOR2D inputVector)
 {
     printf("%.2fi + %.2fj\n", inputVector.i, inputVector.j);
