@@ -7,7 +7,7 @@
 #include "..\include\MyStructs.h"
 #include "..\include\GlobalVars.h"
 
-// Gets called once before frame rendering
+// Gets called once before frame rendering has started
 int MyMain(void){
     PixelsFillSolid(_pixelMemory, _pixelMemoryLen, _ColorKrimzoFav);
 
