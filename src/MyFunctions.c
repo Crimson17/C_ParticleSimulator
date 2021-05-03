@@ -7,16 +7,16 @@
 #include "..\include\MyStructs.h"
 #include "..\include\GlobalVars.h"
 
-// Communicates with windows, when yuo click on "X" windows sends a WM_CLOSE message
+// Communicates with windows
 LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
     LRESULT result;
     switch (message)
     {
+    // Stops the window loop if the window message was WM_CLOSE
     case WM_CLOSE:
         globalRunning = 0;
         break;
-
     default:
         result = DefWindowProc(window, message, wParam, lParam);
         break;
