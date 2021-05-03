@@ -10,7 +10,7 @@
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
 {
     // Setup
-    FreeConsole();
+    //FreeConsole();
     srand((unsigned)time(NULL));
     globalRunning = 1;
 
@@ -50,8 +50,8 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     PixelsFillSolid(pixelMemory, windowWidth * windowHeight, ColorKrimzoFav);
 
     POINT2D A = {100, 100};
-    POINT2D B = {500, -10};
-    //PixelsDrawLine(pixelMemory, A, B, ColorWhite);    WIP
+    POINT2D B = {300, 0};
+    PixelsDrawLine(pixelMemory, A, B, ColorWhite);
 
     // Keep window open
     while (globalRunning)

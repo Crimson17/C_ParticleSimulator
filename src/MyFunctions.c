@@ -26,20 +26,35 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
 
 void PixelsDrawLine(unsigned int *_pixelMemory, POINT2D point1, POINT2D point2, int color)
 {
-    VECTOR2D tempVec = Vector_New(point1, point2);
-    float tempVecLength = Vector_Length(tempVec);
+    // Check if the coords are inside of the bounds
+    if(point1.x < 0 || point2.x < 0 || point1.x > windowWidth || point2.x > windowWidth){
+        printf("Point x coordinates are out of range, range.x -> 0 ~ %d\n", windowWidth);
+        return;
+    }
+    if(point1.y < 0 || point2.y < 0 || point1.y > windowHeight || point2.y > windowHeight){
+        printf("Point y coordinates are out of range, range.y -> 0 ~ %d\n", windowHeight);
+        return;
+    }
 
+    // Calculate the vector and normalize to get the direction
+    VECTOR2D tempVec = Vector_New(point1, point2);
     VECTOR2D normVec = Vector_Normalize(tempVec);
 
-    VECTOR2D drawerVec = {0};
-    drawerVec.i = point1.x;
-    drawerVec.j = point1.y;
+    // Divide by 10 to get a better precision (the speed is not important yet..)
+    normVec.i /= 10;
+    normVec.j /= 10;
 
-    while (Vector_Length(drawerVec) < tempVecLength)
+    // Basically a dot that travels over the line path and changes the pixel colors
+    POINT2D travelDot = {0};
+    travelDot.x = point1.x;
+    travelDot.y= point1.y;
+
+    // Loop for dot travel
+    while ((int)travelDot.x != point2.x || (int)travelDot.y != point2.y)
     {
-        *(_pixelMemory + ((int)drawerVec.i + ((int)drawerVec.j * windowWidth))) = color;
-        drawerVec.i += normVec.i;
-        drawerVec.j += normVec.j;
+        *(_pixelMemory + ((int)travelDot.x + ((int)travelDot.y * windowWidth))) = color;
+        travelDot.x += normVec.i;
+        travelDot.y += normVec.j;
     }
 }
 
