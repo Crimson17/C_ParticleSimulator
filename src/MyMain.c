@@ -18,3 +18,7 @@ int MyMain(void){
 
     return 0;
 }
+
+void FrameUpdate(MSG message){
+    
+}

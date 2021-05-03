@@ -10,7 +10,7 @@
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
 {
     // Setup
-    FreeConsole();
+    //FreeConsole();
     srand((unsigned)time(NULL));
     globalRunning = 1;
 
@@ -63,12 +63,13 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         {
             // Translate key code to real char
             TranslateMessage(&message);
+            // Send message to MSG message
             DispatchMessage(&message);
         }
+        // A function that gets called every frame update
+        FrameUpdate(message);
         // Render bits from the memmory to screen
         StretchDIBits(hdc, 0, 0, windowWidth, windowHeight, 0, 0, windowWidth, windowHeight, _pixelMemory, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
-
-        // Have to add function for dynamic updating and also int for fps!
     }
 
     // Free pixel memory
