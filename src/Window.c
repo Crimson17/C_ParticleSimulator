@@ -66,7 +66,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
             // Send message to MSG message
             DispatchMessage(&message);
         }
-        // A function that gets called every frame update
+        // Gets called every frame update
         FrameUpdate(message);
         // Render bits from the memmory to screen
         StretchDIBits(hdc, 0, 0, windowWidth, windowHeight, 0, 0, windowWidth, windowHeight, _pixelMemory, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
