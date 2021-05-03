@@ -10,9 +10,10 @@
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
 {
     // Setup
-    //FreeConsole();
+    FreeConsole();
     srand((unsigned)time(NULL));
     globalRunning = 1;
+    float timeToSleep = 0.0;
 
     // Define window class
     char *CLASS_NAME = "GameWindow";
@@ -50,8 +51,14 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     PixelsFillSolid(_pixelMemory, _pixelMemoryLen, _ColorWhite);
 
     // User stuff
-    if(MyMain()){
+    if (MyMain())
+    {
         return -1;
+    }
+
+    // Calculate time needed to sleep for constant fps
+    if(_fps > 0){
+        timeToSleep = (1 / _fps)*1000;
     }
 
     // Keep window open
@@ -70,6 +77,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         FrameUpdate(message);
         // Render bits from the memmory to screen
         StretchDIBits(hdc, 0, 0, windowWidth, windowHeight, 0, 0, windowWidth, windowHeight, _pixelMemory, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
+        Sleep(timeToSleep);
     }
 
     // Free pixel memory

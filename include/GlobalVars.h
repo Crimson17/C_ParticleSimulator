@@ -8,6 +8,7 @@ int windowWidth;
 int windowHeight;
 void *_pixelMemory;
 int _pixelMemoryLen;
+float _fps;
 BITMAPINFO bitmap_info;
 
 #endif
