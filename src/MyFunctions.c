@@ -34,18 +34,6 @@ void PixelsDrawPoint(unsigned int *pixelMemory, POINT2D point, int color)
 // Draws a custom colored line on the window with the given points
 void PixelsDrawLine(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, int color)
 {
-    // Check if the coords are inside of the bounds
-    if (point1.x < 0 || point2.x < 0 || point1.x > calcWindowWidth || point2.x > calcWindowWidth)
-    {
-        printf("Point x coordinates are out of range, range.x -> 0 ~ %d\n", calcWindowWidth);
-        return;
-    }
-    if (point1.y < 0 || point2.y < 0 || point1.y > calcWindowHeight || point2.y > calcWindowHeight)
-    {
-        printf("Point y coordinates are out of range, range.y -> 0 ~ %d\n", calcWindowHeight);
-        return;
-    }
-
     // Calculate the vector and normalize to get the direction
     VECTOR2D tempVec = Vector_New(point1, point2);
     float tempVecLen = Vector_Length(tempVec);
@@ -63,8 +51,11 @@ void PixelsDrawLine(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, i
     // Loop for dot travel
     for (int i = 0; i < (tempVecLen * 10); i++)
     {
-        // Change pixel color
-        PixelsDrawPoint(pixelMemory, travelDot, color);
+        // Check if point is in the window and change pixel color if is
+        if (PointInWindow(travelDot))
+        {
+            PixelsDrawPoint(pixelMemory, travelDot, color);
+        }
         // Increment dot cords by the normalized vector
         travelDot.x += normVec.i;
         travelDot.y += normVec.j;
@@ -82,13 +73,13 @@ void PixelsDrawTriangle(unsigned int *pixelMemory, POINT2D point1, POINT2D point
 void PixelsDrawCircle(unsigned int *pixelMemory, POINT2D centerPoint, POINT2D outerPoint, int color)
 {
     float radius = Point2D_Distance(centerPoint, outerPoint);
-    if (centerPoint.x - radius >= 0 && centerPoint.x + radius <= calcWindowWidth && centerPoint.y >= 0 && centerPoint.y <= calcWindowHeight)
+    float circleCirc = 2 * radius * M_PI;
+    float degreeStep = (360.0 / (circleCirc * 10.0));
+    for (float degrees = 0; degrees < 360.0; degrees += degreeStep)
     {
-        float circleCirc = 2 * radius * M_PI;
-        float degreeStep = (360.0 / (circleCirc * 10.0));
-        for (float degrees = 0; degrees < 360.0; degrees += degreeStep)
+        POINT2D travelDot = {centerPoint.x + (radius * sin(degrees)), centerPoint.y + (radius * cos(degrees))};
+        if (PointInWindow(travelDot))
         {
-            POINT2D travelDot = {centerPoint.x + (radius * sin(degrees)), centerPoint.y + (radius * cos(degrees))};
             PixelsDrawPoint(pixelMemory, travelDot, color);
         }
     }
@@ -134,6 +125,20 @@ void PixelsFillSolid(unsigned int *pixelMemory, int memoryLength, int color)
 float Point2D_Distance(POINT2D point1, POINT2D point2)
 {
     return (sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)));
+}
+
+// Returns true if point is inside the window
+int PointInWindow(POINT2D point)
+{
+    if (point.x < 0 || point.x > calcWindowWidth)
+    {
+        return 0;
+    }
+    if (point.y < 0 || point.y > calcWindowHeight)
+    {
+        return 0;
+    }
+    return 1;
 }
 
 // Creates a new vector from 2 given points

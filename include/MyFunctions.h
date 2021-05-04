@@ -23,6 +23,7 @@ void PixelsFillSolid(unsigned int *pixelMemory, int memoryLength, int color);
 
 // Point functions
 float Point2D_Distance(POINT2D point1, POINT2D point2);
+int PointInWindow(POINT2D point);
 
 // Vector functions
 VECTOR2D Vector_New(POINT2D point1, POINT2D point2);
