@@ -12,11 +12,11 @@ void WindowProperties()
 {
     // Screen size
     _windowWidth = 1800;
-    _windowHeight = 900 + 30;
+    _windowHeight = 900 + 40;
     //  Hides the console
     _hideConsole = 1;
     // If the fps is set to 0 or less there will be no frame limitations
-    _fps = 120;
+    _fps = 0;
 }
 
 // Gets called once before frame rendering has started
@@ -37,10 +37,9 @@ int randColor = 0;
 // Gets called ever frame update
 void FrameUpdate(MSG message)
 {
-    if (frameCounter % 10 == 0)
-    {
-        randColor = 0 + (float)rand() / RAND_MAX * (0xFFFFFF + 1);
+    if(message.wParam == 1){
+        POINT2D mouseCoords = {LOWORD(message.lParam), abs(HIWORD(message.lParam) - _windowHeight) - 40};
+        PixelsDrawPoint(_pixelMemory, mouseCoords, _ColorOrange);
     }
-    PixelsDrawCircle(_pixelMemory, (POINT2D){frameCounter, 500}, (POINT2D){frameCounter, 600}, randColor);
     frameCounter++;
 }
