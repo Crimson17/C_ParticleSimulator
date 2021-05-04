@@ -16,7 +16,7 @@ void WindowProperties()
     //  Hides the console
     _hideConsole = 1;
     // If the fps is set to 0 or less there will be no frame limitations
-    _fps = 0;
+    _fps = 60;
 }
 
 // Gets called once before frame rendering has started
@@ -26,7 +26,7 @@ int MyMain(void)
 
     POINT2D A = {0, 100};
     POINT2D B = {300, 55};
-    POINT2D C = {900, 500};
+    POINT2D C = {900, 400};
     PixelsDrawTriangle(_pixelMemory, A, B, C, _ColorOrange);
 
     return 0;
@@ -34,19 +34,18 @@ int MyMain(void)
 
 int frameCounter = 0;
 int frameCounter2 = 0;
-
 // Gets called ever frame update
 void FrameUpdate(MSG message)
 {
     int randColor = 0 + (float)rand() / RAND_MAX * (0xFFFFFF);
-    if (frameCounter < calcWindowWidth)
+    if (frameCounter < calcWindowWidth / 2)
     {
-        PixelsDrawLine(_pixelMemory, (POINT2D){frameCounter, 0}, (POINT2D){frameCounter, calcWindowWidth}, _ColorBlack);
+        PixelsDrawLine(_pixelMemory, (POINT2D){frameCounter, 0}, (POINT2D){frameCounter, calcWindowHeight}, _ColorBlack);
         frameCounter += 2;
     }
-    if (frameCounter2 < calcWindowHeight)
+    if (frameCounter2 < calcWindowHeight / 2)
     {
-        //PixelsDrawLine(_pixelMemory, (POINT2D){0, frameCounter2}, (POINT2D){calcWindowWidth, frameCounter2}, _ColorOrange);
+        PixelsDrawLine(_pixelMemory, (POINT2D){0, frameCounter2}, (POINT2D){calcWindowWidth, frameCounter2}, _ColorOrange);
         frameCounter2 += 1;
     }
 }

@@ -72,6 +72,24 @@ void PixelsDrawTriangle(unsigned int *pixelMemory, POINT2D point1, POINT2D point
     PixelsDrawLine(pixelMemory, point3, point1, color);
 }
 
+// Draws a vertical mask over the whole screen
+void PixelsVerticalMask(unsigned int *pixelMemory, int color)
+{
+    for (int i = 0; i < calcWindowWidth; i += 2)
+    {
+        PixelsDrawLine(pixelMemory, (POINT2D){i, 0}, (POINT2D){i, calcWindowHeight}, color);
+    }
+}
+
+// Draws a horizontal mask over the whole screen
+void PixelsHorizontalMask(unsigned int *pixelMemory, int color)
+{
+    for (int i = 0; i < calcWindowHeight; i += 2)
+    {
+        PixelsDrawLine(pixelMemory, (POINT2D){0, i}, (POINT2D){calcWindowWidth, i}, color);
+    }
+}
+
 // Fill memory with randomly colored pixels
 void PixelsFillRand(unsigned int *pixelMemory, int memoryLength)
 {
