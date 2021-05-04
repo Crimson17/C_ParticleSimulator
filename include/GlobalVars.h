@@ -7,11 +7,12 @@ int _windowWidth;
 int _windowHeight;
 int _hideConsole;
 float _fps;
+void *_pixelMemory;
+int _pixelMemoryLen;
+
 int globalRunning;
 int calcWindowWidth;
 int calcWindowHeight;
-void *_pixelMemory;
-int _pixelMemoryLen;
 BITMAPINFO bitmap_info;
 
 #endif
