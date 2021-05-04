@@ -38,12 +38,12 @@ int frameCounter2 = 0;
 void FrameUpdate(MSG message)
 {
     int randColor = 0 + (float)rand() / RAND_MAX * (0xFFFFFF);
-    if (frameCounter < calcWindowWidth / 2)
+    if (frameCounter < calcWindowWidth)
     {
         PixelsDrawLine(_pixelMemory, (POINT2D){frameCounter, 0}, (POINT2D){frameCounter, calcWindowHeight}, _ColorBlack);
         frameCounter += 2;
     }
-    if (frameCounter2 < calcWindowHeight / 2)
+    if (frameCounter2 < calcWindowHeight)
     {
         PixelsDrawLine(_pixelMemory, (POINT2D){0, frameCounter2}, (POINT2D){calcWindowWidth, frameCounter2}, _ColorOrange);
         frameCounter2 += 1;

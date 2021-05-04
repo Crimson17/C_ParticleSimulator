@@ -24,6 +24,11 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
     return result;
 }
 
+// Draws a custom colored pixel
+void PixelsDrawPoint(unsigned int *pixelMemory, POINT2D point, int color){
+    *(pixelMemory + ((int)point.x + ((int)point.y * calcWindowWidth))) = color;
+}
+
 // Draws a custom colored line on the window with the given points
 void PixelsDrawLine(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, int color)
 {
@@ -57,7 +62,7 @@ void PixelsDrawLine(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, i
     for (int i = 0; i < (tempVecLen * 10); i++)
     {
         // Change pixel color
-        *(pixelMemory + ((int)travelDot.x + ((int)travelDot.y * calcWindowWidth))) = color;
+        PixelsDrawPoint(pixelMemory, travelDot, color);
         // Increment dot cords by the normalized vector
         travelDot.x += normVec.i;
         travelDot.y += normVec.j;
