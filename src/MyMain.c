@@ -12,11 +12,11 @@ void WindowProperties()
 {
     // Screen size
     _windowWidth = 1800;
-    _windowHeight = 900;
+    _windowHeight = 900 + 30;
     //  Hides the console
     _hideConsole = 1;
     // If the fps is set to 0 or less there will be no frame limitations
-    _fps = 60;
+    _fps = 0;
 }
 
 // Gets called once before frame rendering has started
@@ -41,12 +41,12 @@ void FrameUpdate(MSG message)
     int randColor = 0 + (float)rand() / RAND_MAX * (0xFFFFFF);
     if (frameCounter < calcWindowWidth)
     {
-        PixelsDrawLine(_pixelMemory, (POINT2D){frameCounter, 0}, (POINT2D){frameCounter, calcWindowHeight}, _ColorBlack);
+        PixelsDrawLine(_pixelMemory, (POINT2D){frameCounter, 0}, (POINT2D){frameCounter, calcWindowWidth}, _ColorBlack);
         frameCounter += 2;
     }
     if (frameCounter2 < calcWindowHeight)
     {
-        PixelsDrawLine(_pixelMemory, (POINT2D){0, frameCounter2}, (POINT2D){calcWindowWidth, frameCounter2}, _ColorOrange);
+        //PixelsDrawLine(_pixelMemory, (POINT2D){0, frameCounter2}, (POINT2D){calcWindowWidth, frameCounter2}, _ColorOrange);
         frameCounter2 += 1;
     }
 }

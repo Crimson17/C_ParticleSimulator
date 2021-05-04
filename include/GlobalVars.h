@@ -3,18 +3,16 @@
 #ifndef GLOBALVARS_H
 #define GLOBALVARS_H
 
-// User can manipulate these
 int _windowWidth;
 int _windowHeight;
 int _hideConsole;
 float _fps;
 void *_pixelMemory;
 int _pixelMemoryLen;
-
-// User shouldn't use these
-int globalRunning;
 int calcWindowWidth;
 int calcWindowHeight;
+
+int globalRunning;
 BITMAPINFO bitmap_info;
 
 #endif
