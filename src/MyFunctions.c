@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -25,7 +26,8 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
 }
 
 // Draws a custom colored pixel
-void PixelsDrawPoint(unsigned int *pixelMemory, POINT2D point, int color){
+void PixelsDrawPoint(unsigned int *pixelMemory, POINT2D point, int color)
+{
     *(pixelMemory + ((int)point.x + ((int)point.y * calcWindowWidth))) = color;
 }
 
@@ -77,6 +79,18 @@ void PixelsDrawTriangle(unsigned int *pixelMemory, POINT2D point1, POINT2D point
     PixelsDrawLine(pixelMemory, point3, point1, color);
 }
 
+void PixelsDrawCircle(unsigned int *pixelMemory, POINT2D centerPoint, POINT2D outerPoint, int color)
+{
+    float radius = Point2D_Distance(centerPoint, outerPoint);
+    float circleCirc = 2 * radius * M_PI;
+    float degreeStep = (360.0 / (circleCirc * 10.0));
+    for (float degrees = 0; degrees < 360.0; degrees += degreeStep)
+    {
+        POINT2D travelDot = {centerPoint.x + (radius * sin(degrees)), centerPoint.y + (radius * cos(degrees))};
+        PixelsDrawPoint(pixelMemory, travelDot, color);
+    }
+}
+
 // Draws a vertical mask over the whole screen
 void PixelsVerticalMask(unsigned int *pixelMemory, int color)
 {
@@ -111,6 +125,12 @@ void PixelsFillSolid(unsigned int *pixelMemory, int memoryLength, int color)
     {
         *(pixelMemory + i) = color;
     }
+}
+
+// Returns a distance between 2 points
+float Point2D_Distance(POINT2D point1, POINT2D point2)
+{
+    return (sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)));
 }
 
 // Creates a new vector from 2 given points

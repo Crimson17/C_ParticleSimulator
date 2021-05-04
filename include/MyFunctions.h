@@ -15,10 +15,14 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
 void PixelsDrawPoint(unsigned int *pixelMemory, POINT2D point, int color);
 void PixelsDrawLine(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, int color);
 void PixelsDrawTriangle(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, POINT2D point3, int color);
+void PixelsDrawCircle(unsigned int *pixelMemory, POINT2D centerPoint, POINT2D outerPoint, int color);
 void PixelsVerticalMask(unsigned int *pixelMemory, int color);
 void PixelsHorizontalMask(unsigned int *pixelMemory, int color);
 void PixelsFillRand(unsigned int *pixelMemory, int memoryLength);
 void PixelsFillSolid(unsigned int *pixelMemory, int memoryLength, int color);
+
+// Point functions
+float Point2D_Distance(POINT2D point1, POINT2D point2);
 
 // Vector functions
 VECTOR2D Vector_New(POINT2D point1, POINT2D point2);
