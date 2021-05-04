@@ -82,12 +82,15 @@ void PixelsDrawTriangle(unsigned int *pixelMemory, POINT2D point1, POINT2D point
 void PixelsDrawCircle(unsigned int *pixelMemory, POINT2D centerPoint, POINT2D outerPoint, int color)
 {
     float radius = Point2D_Distance(centerPoint, outerPoint);
-    float circleCirc = 2 * radius * M_PI;
-    float degreeStep = (360.0 / (circleCirc * 10.0));
-    for (float degrees = 0; degrees < 360.0; degrees += degreeStep)
+    if (centerPoint.x - radius >= 0 && centerPoint.x + radius <= calcWindowWidth && centerPoint.y >= 0 && centerPoint.y <= calcWindowHeight)
     {
-        POINT2D travelDot = {centerPoint.x + (radius * sin(degrees)), centerPoint.y + (radius * cos(degrees))};
-        PixelsDrawPoint(pixelMemory, travelDot, color);
+        float circleCirc = 2 * radius * M_PI;
+        float degreeStep = (360.0 / (circleCirc * 10.0));
+        for (float degrees = 0; degrees < 360.0; degrees += degreeStep)
+        {
+            POINT2D travelDot = {centerPoint.x + (radius * sin(degrees)), centerPoint.y + (radius * cos(degrees))};
+            PixelsDrawPoint(pixelMemory, travelDot, color);
+        }
     }
 }
 
