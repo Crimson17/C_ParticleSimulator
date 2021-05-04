@@ -28,14 +28,14 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
 void PixelsDrawLine(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, int color)
 {
     // Check if the coords are inside of the bounds
-    if (point1.x < 0 || point2.x < 0 || point1.x > windowWidth || point2.x > windowWidth)
+    if (point1.x < 0 || point2.x < 0 || point1.x > calcWindowWidth || point2.x > calcWindowWidth)
     {
-        printf("Point x coordinates are out of range, range.x -> 0 ~ %d\n", windowWidth);
+        printf("Point x coordinates are out of range, range.x -> 0 ~ %d\n", calcWindowWidth);
         return;
     }
-    if (point1.y < 0 || point2.y < 0 || point1.y > windowHeight || point2.y > windowHeight)
+    if (point1.y < 0 || point2.y < 0 || point1.y > calcWindowHeight || point2.y > calcWindowHeight)
     {
-        printf("Point y coordinates are out of range, range.y -> 0 ~ %d\n", windowHeight);
+        printf("Point y coordinates are out of range, range.y -> 0 ~ %d\n", calcWindowHeight);
         return;
     }
 
@@ -57,7 +57,7 @@ void PixelsDrawLine(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, i
     for (int i = 0; i < (tempVecLen * 10); i++)
     {
         // Change pixel color
-        *(pixelMemory + ((int)travelDot.x + ((int)travelDot.y * windowWidth))) = color;
+        *(pixelMemory + ((int)travelDot.x + ((int)travelDot.y * calcWindowWidth))) = color;
         // Increment dot cords by the normalized vector
         travelDot.x += normVec.i;
         travelDot.y += normVec.j;

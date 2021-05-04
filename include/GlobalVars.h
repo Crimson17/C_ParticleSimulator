@@ -3,12 +3,15 @@
 #ifndef GLOBALVARS_H
 #define GLOBALVARS_H
 
+int _windowWidth;
+int _windowHeight;
+int _hideConsole;
+float _fps;
 int globalRunning;
-int windowWidth;
-int windowHeight;
+int calcWindowWidth;
+int calcWindowHeight;
 void *_pixelMemory;
 int _pixelMemoryLen;
-float _fps;
 BITMAPINFO bitmap_info;
 
 #endif

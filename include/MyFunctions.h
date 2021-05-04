@@ -4,6 +4,7 @@
 #define MYFUNCTIONS_H
 
 // Functions included in MyMain.c
+void WindowProperties();
 int MyMain(void);
 void FrameUpdate(MSG message);
 

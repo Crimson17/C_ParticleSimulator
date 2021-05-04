@@ -9,8 +9,13 @@
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
 {
+    // Win props
+    WindowProperties();
     // Setup
-    FreeConsole();
+    if (_hideConsole)
+    {
+        FreeConsole();
+    }
     srand((unsigned)time(NULL));
     globalRunning = 1;
     float timeToSleep = 0.0;
@@ -24,25 +29,30 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     RegisterClass(&window_class);
 
     // Create window and specify window properties
-    HWND window = CreateWindowEx(0, CLASS_NAME, "My Window", WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, 0, 0, hInstance, 0);
+    HWND window = CreateWindowEx(0, CLASS_NAME, "My Window", WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, _windowWidth, _windowHeight, 0, 0, hInstance, 0);
 
     // Get window width and height
     RECT rect;
     GetClientRect(window, &rect);
-    windowWidth = rect.right - rect.left;
-    windowHeight = rect.bottom - rect.top;
+    calcWindowWidth = rect.right - rect.left;
+    calcWindowHeight = rect.bottom - rect.top;
+
+    printf("Inputed win width: %d\n", _windowWidth);
+    printf("Inputed win height: %d\n", _windowHeight);
+    printf("Calculated win width: %d\n", calcWindowWidth);
+    printf("Calculated win height: %d\n", calcWindowHeight);
 
     // Allocate memory for the pixels
-    _pixelMemoryLen = windowWidth * windowHeight;
+    _pixelMemoryLen = calcWindowWidth * calcWindowHeight;
     _pixelMemory = VirtualAlloc(0, _pixelMemoryLen * sizeof(unsigned int), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 
     // Pixel properties
     bitmap_info.bmiHeader.biSize = sizeof(bitmap_info.bmiHeader);
-    bitmap_info.bmiHeader.biWidth = windowWidth;   // Window width
-    bitmap_info.bmiHeader.biHeight = windowHeight; // Window height
-    bitmap_info.bmiHeader.biPlanes = 1;            // Old stuff, has to be 1 now
-    bitmap_info.bmiHeader.biBitCount = 32;         // How many bits for each pixel
-    bitmap_info.bmiHeader.biCompression = BI_RGB;  // Compression type, RI_RGB = no compression
+    bitmap_info.bmiHeader.biWidth = calcWindowWidth;   // Window width
+    bitmap_info.bmiHeader.biHeight = calcWindowHeight; // Window height
+    bitmap_info.bmiHeader.biPlanes = 1;                // Old stuff, has to be 1 now
+    bitmap_info.bmiHeader.biBitCount = 32;             // How many bits for each pixel
+    bitmap_info.bmiHeader.biCompression = BI_RGB;      // Compression type, RI_RGB = no compression
 
     // Access window, so it can be rendered to
     HDC hdc = GetDC(window);
@@ -57,8 +67,9 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     }
 
     // Calculate time needed to sleep for constant fps
-    if(_fps > 0){
-        timeToSleep = (1 / _fps)*1000;
+    if (_fps > 0)
+    {
+        timeToSleep = (1 / _fps) * 1000;
     }
 
     // Keep window open
@@ -76,7 +87,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         // Gets called every frame update
         FrameUpdate(message);
         // Render bits from the memmory to screen
-        StretchDIBits(hdc, 0, 0, windowWidth, windowHeight, 0, 0, windowWidth, windowHeight, _pixelMemory, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
+        StretchDIBits(hdc, 0, 0, calcWindowWidth, calcWindowHeight, 0, 0, calcWindowWidth, calcWindowHeight, _pixelMemory, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
         Sleep(timeToSleep);
     }
 

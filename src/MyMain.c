@@ -7,12 +7,21 @@
 #include "..\include\MyStructs.h"
 #include "..\include\GlobalVars.h"
 
+// Window properties duh
+void WindowProperties()
+{
+    // Screen size
+    _windowWidth = 900;
+    _windowHeight = 900;
+    //  Hides the console
+    _hideConsole = 0;
+    // If the fps is set to 0 or less there will be no frame limitations
+    _fps = 0;
+}
 
 // Gets called once before frame rendering has started
 int MyMain(void)
 {
-    _fps = 30;
-    
     PixelsFillSolid(_pixelMemory, _pixelMemoryLen, _ColorKrimzoFav);
 
     /*
@@ -22,6 +31,7 @@ int MyMain(void)
 
     PixelsDrawTriangle(_pixelMemory, A, B, C, _ColorOrange);
     */
+
     return 0;
 }
 
@@ -31,12 +41,15 @@ int frameCounter2 = 0;
 // Gets called ever frame update
 void FrameUpdate(MSG message)
 {
-    if(frameCounter < windowWidth){
-        PixelsDrawLine(_pixelMemory, (POINT2D){frameCounter, 0}, (POINT2D){frameCounter, windowHeight}, 0 + (float)rand() / RAND_MAX * (0xFFFFFF));
-        frameCounter += 2;
+    int randColor = 0 + (float)rand() / RAND_MAX * (0xFFFFFF);
+    if (frameCounter < calcWindowWidth)
+    {
+        PixelsDrawLine(_pixelMemory, (POINT2D){frameCounter, 0}, (POINT2D){frameCounter, calcWindowHeight}, _ColorBlack);
+        frameCounter += 1;
     }
-    if(frameCounter2 < windowHeight){
-        PixelsDrawLine(_pixelMemory, (POINT2D){0, frameCounter2}, (POINT2D){windowWidth, frameCounter2}, 0 + (float)rand() / RAND_MAX * (0xFFFFFF));
-        frameCounter2 += 2;
+    if (frameCounter2 < calcWindowHeight)
+    {
+        PixelsDrawLine(_pixelMemory, (POINT2D){0, frameCounter2}, (POINT2D){calcWindowWidth, frameCounter2}, _ColorOrange);
+        frameCounter2 += 1;
     }
 }
