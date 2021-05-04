@@ -11,12 +11,12 @@
 void WindowProperties()
 {
     // Screen size
-    _windowWidth = 900;
+    _windowWidth = 1800;
     _windowHeight = 900;
     //  Hides the console
-    _hideConsole = 0;
+    _hideConsole = 1;
     // If the fps is set to 0 or less there will be no frame limitations
-    _fps = 0;
+    _fps = 60;
 }
 
 // Gets called once before frame rendering has started
@@ -24,13 +24,10 @@ int MyMain(void)
 {
     PixelsFillSolid(_pixelMemory, _pixelMemoryLen, _ColorKrimzoFav);
 
-    /*
     POINT2D A = {0, 100};
     POINT2D B = {300, 55};
     POINT2D C = {900, 500};
-
     PixelsDrawTriangle(_pixelMemory, A, B, C, _ColorOrange);
-    */
 
     return 0;
 }
@@ -45,7 +42,7 @@ void FrameUpdate(MSG message)
     if (frameCounter < calcWindowWidth)
     {
         PixelsDrawLine(_pixelMemory, (POINT2D){frameCounter, 0}, (POINT2D){frameCounter, calcWindowHeight}, _ColorBlack);
-        frameCounter += 1;
+        frameCounter += 2;
     }
     if (frameCounter2 < calcWindowHeight)
     {

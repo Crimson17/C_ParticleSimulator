@@ -37,11 +37,6 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     calcWindowWidth = rect.right - rect.left;
     calcWindowHeight = rect.bottom - rect.top;
 
-    printf("Inputed win width: %d\n", _windowWidth);
-    printf("Inputed win height: %d\n", _windowHeight);
-    printf("Calculated win width: %d\n", calcWindowWidth);
-    printf("Calculated win height: %d\n", calcWindowHeight);
-
     // Allocate memory for the pixels
     _pixelMemoryLen = calcWindowWidth * calcWindowHeight;
     _pixelMemory = VirtualAlloc(0, _pixelMemoryLen * sizeof(unsigned int), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
