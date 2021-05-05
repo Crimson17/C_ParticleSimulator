@@ -70,6 +70,14 @@ void PixelsDrawTriangle(POINT2D point1, POINT2D point2, POINT2D point3, int colo
     PixelsDrawLine(point3, point1, color);
 }
 
+// Draws a custom colored rectangle on the window with the given points
+void PixelsDrawRectangle(POINT2D point1, POINT2D point2, int color){
+    PixelsDrawLine(point1, (POINT2D){point1.x, point2.y}, color);
+    PixelsDrawLine(point1, (POINT2D){point2.x, point1.y}, color);
+    PixelsDrawLine((POINT2D){point1.x, point2.y}, point2, color);
+    PixelsDrawLine((POINT2D){point2.x, point1.y}, point2, color);
+}
+
 // Draws a custom colored circle on the window with the given points
 void PixelsDrawCircle(POINT2D centerPoint, POINT2D outerPoint, int color)
 {

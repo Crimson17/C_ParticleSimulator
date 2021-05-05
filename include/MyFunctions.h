@@ -15,7 +15,7 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
 void PixelsDrawPoint(POINT2D point, int color);
 void PixelsDrawLine(POINT2D point1, POINT2D point2, int color);
 void PixelsDrawTriangle(POINT2D point1, POINT2D point2, POINT2D point3, int color);
-void PixelsDrawRectangle();
+void PixelsDrawRectangle(POINT2D point1, POINT2D point2, int color);
 void PixelsDrawCircle(POINT2D centerPoint, POINT2D outerPoint, int color);
 void PixelsVerticalMask(int color);
 void PixelsHorizontalMask(int color);

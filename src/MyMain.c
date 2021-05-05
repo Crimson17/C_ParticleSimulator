@@ -24,10 +24,7 @@ int MyMain(void)
 {
     PixelsFillSolid(_ColorKrimzoFav);
 
-    POINT2D A = {0, 100};
-    POINT2D B = {300, 55};
-    POINT2D C = {900, 400};
-    PixelsDrawTriangle(A, B, C, _ColorOrange);
+    PixelsDrawRectangle((POINT2D){300, 100}, (POINT2D){600, 250}, _ColorWhite);
 
     return 0;
 }
