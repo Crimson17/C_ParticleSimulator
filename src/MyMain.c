@@ -22,12 +22,12 @@ void WindowProperties()
 // Gets called once before frame rendering has started
 int MyMain(void)
 {
-    PixelsFillSolid(_pixelMemory, _pixelMemoryLen, _ColorKrimzoFav);
+    PixelsFillSolid(_ColorKrimzoFav);
 
     POINT2D A = {0, 100};
     POINT2D B = {300, 55};
     POINT2D C = {900, 400};
-    PixelsDrawTriangle(_pixelMemory, A, B, C, _ColorOrange);
+    PixelsDrawTriangle(A, B, C, _ColorOrange);
 
     return 0;
 }
@@ -37,9 +37,10 @@ int randColor = 0;
 // Gets called ever frame update
 void FrameUpdate(MSG message)
 {
-    if(message.wParam == 1){
+    if (message.wParam == 1)
+    {
         POINT2D mouseCoords = {LOWORD(message.lParam), abs(HIWORD(message.lParam) - _windowHeight) - 40};
-        PixelsDrawPoint(_pixelMemory, mouseCoords, _ColorOrange);
+        PixelsDrawPoint(mouseCoords, _ColorOrange);
     }
     frameCounter++;
 }

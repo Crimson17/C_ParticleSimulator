@@ -53,7 +53,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     HDC hdc = GetDC(window);
 
     // Inital pixel colors
-    PixelsFillSolid(_pixelMemory, _pixelMemoryLen, _ColorWhite);
+    PixelsFillSolid(_ColorWhite);
 
     // User stuff
     if (MyMain())

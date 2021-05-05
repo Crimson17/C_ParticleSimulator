@@ -26,13 +26,13 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
 }
 
 // Draws a custom colored pixel
-void PixelsDrawPoint(unsigned int *pixelMemory, POINT2D point, int color)
+void PixelsDrawPoint(POINT2D point, int color)
 {
-    *(pixelMemory + ((int)point.x + ((int)point.y * calcWindowWidth))) = color;
+    *(_pixelMemory + ((int)point.x + ((int)point.y * calcWindowWidth))) = color;
 }
 
 // Draws a custom colored line on the window with the given points
-void PixelsDrawLine(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, int color)
+void PixelsDrawLine(POINT2D point1, POINT2D point2, int color)
 {
     // Calculate the vector and normalize to get the direction
     VECTOR2D tempVec = Vector_New(point1, point2);
@@ -54,7 +54,7 @@ void PixelsDrawLine(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, i
         // Check if point is in the window and change pixel color if is
         if (PointInWindow(travelDot))
         {
-            PixelsDrawPoint(pixelMemory, travelDot, color);
+            PixelsDrawPoint(travelDot, color);
         }
         // Increment dot cords by the normalized vector
         travelDot.x += normVec.i;
@@ -63,15 +63,15 @@ void PixelsDrawLine(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, i
 }
 
 // Draws a custom colored traingle on the window with the given points
-void PixelsDrawTriangle(unsigned int *pixelMemory, POINT2D point1, POINT2D point2, POINT2D point3, int color)
+void PixelsDrawTriangle(POINT2D point1, POINT2D point2, POINT2D point3, int color)
 {
-    PixelsDrawLine(pixelMemory, point1, point2, color);
-    PixelsDrawLine(pixelMemory, point2, point3, color);
-    PixelsDrawLine(pixelMemory, point3, point1, color);
+    PixelsDrawLine(point1, point2, color);
+    PixelsDrawLine(point2, point3, color);
+    PixelsDrawLine(point3, point1, color);
 }
 
 // Draws a custom colored circle on the window with the given points
-void PixelsDrawCircle(unsigned int *pixelMemory, POINT2D centerPoint, POINT2D outerPoint, int color)
+void PixelsDrawCircle(POINT2D centerPoint, POINT2D outerPoint, int color)
 {
     float radius = Point2D_Distance(centerPoint, outerPoint);
     float circleCirc = 2 * radius * M_PI;
@@ -82,44 +82,44 @@ void PixelsDrawCircle(unsigned int *pixelMemory, POINT2D centerPoint, POINT2D ou
         POINT2D travelDot = {centerPoint.x + (radius * sin(degrees)), centerPoint.y + (radius * cos(degrees))};
         if (PointInWindow(travelDot))
         {
-            PixelsDrawPoint(pixelMemory, travelDot, color);
+            PixelsDrawPoint(travelDot, color);
         }
     }
 }
 
 // Draws a vertical mask over the whole screen
-void PixelsVerticalMask(unsigned int *pixelMemory, int color)
+void PixelsVerticalMask(int color)
 {
     for (int i = 0; i < calcWindowWidth; i += 2)
     {
-        PixelsDrawLine(pixelMemory, (POINT2D){i, 0}, (POINT2D){i, calcWindowHeight}, color);
+        PixelsDrawLine((POINT2D){i, 0}, (POINT2D){i, calcWindowHeight}, color);
     }
 }
 
 // Draws a horizontal mask over the whole screen
-void PixelsHorizontalMask(unsigned int *pixelMemory, int color)
+void PixelsHorizontalMask(int color)
 {
     for (int i = 0; i < calcWindowHeight; i += 2)
     {
-        PixelsDrawLine(pixelMemory, (POINT2D){0, i}, (POINT2D){calcWindowWidth, i}, color);
+        PixelsDrawLine((POINT2D){0, i}, (POINT2D){calcWindowWidth, i}, color);
     }
 }
 
 // Fill memory with randomly colored pixels
-void PixelsFillRand(unsigned int *pixelMemory, int memoryLength)
+void PixelsFillRand()
 {
-    for (int i = 0; i < memoryLength; i++)
+    for (int i = 0; i < _pixelMemoryLen; i++)
     {
-        *(pixelMemory + i) = 0 + (float)rand() / RAND_MAX * (16777216); // 0xFFFFFF = 16777215
+        *(_pixelMemory + i) = 0 + (float)rand() / RAND_MAX * (16777216); // 0xFFFFFF = 16777215
     }
 }
 
 // Fill memory with a single color
-void PixelsFillSolid(unsigned int *pixelMemory, int memoryLength, int color)
+void PixelsFillSolid(int color)
 {
-    for (int i = 0; i < memoryLength; i++)
+    for (int i = 0; i < _pixelMemoryLen; i++)
     {
-        *(pixelMemory + i) = color;
+        *(_pixelMemory + i) = color;
     }
 }
 

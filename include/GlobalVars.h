@@ -7,7 +7,7 @@ int _windowWidth;
 int _windowHeight;
 int _hideConsole;
 float _fps;
-void *_pixelMemory;
+unsigned int *_pixelMemory;
 int _pixelMemoryLen;
 int calcWindowWidth;
 int calcWindowHeight;
