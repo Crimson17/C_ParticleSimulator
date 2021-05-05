@@ -30,12 +30,10 @@ unsigned int ColorAtPoint(POINT2D point){
     return *(_pixelMemory + ((int)point.x + ((int)point.y * calcWindowWidth)));
 }
 
-void PixelsBrush(POINT2D centerPoint, int color){
-    PixelsDrawPoint(centerPoint, color);
-    PixelsDrawPoint((POINT2D){centerPoint.x, centerPoint.y + 1}, color);
-    PixelsDrawPoint((POINT2D){centerPoint.x + 1, centerPoint.y}, color);
-    PixelsDrawPoint((POINT2D){centerPoint.x, centerPoint.y - 1}, color);
-    PixelsDrawPoint((POINT2D){centerPoint.x - 1, centerPoint.y}, color);
+void PixelsBrush(POINT2D centerPoint, int brushSize, int color){
+    for(int i=0; i<brushSize; i++){
+        PixelsDrawCircle(centerPoint, (POINT2D){centerPoint.x + i + 1, centerPoint.y}, color);
+    }
 }
 
 // Draws a custom colored pixel

@@ -37,18 +37,18 @@ void FrameUpdate(MSG message)
     if (message.wParam == 1)
     {
         POINT2D mouseCoords = {LOWORD(message.lParam), abs(HIWORD(message.lParam) - _windowHeight) - 40};
-        PixelsBrush(mouseCoords, _MaterialSand);
+        PixelsBrush(mouseCoords, 7, _MaterialSand);
     }
     if (message.wParam == 2)
     {
         POINT2D mouseCoords = {LOWORD(message.lParam), abs(HIWORD(message.lParam) - _windowHeight) - 40};
-        PixelsBrush(mouseCoords, _MaterialSolid);
+        PixelsBrush(mouseCoords, 7, _MaterialWater);
     }
-    frameCounter++;
 }
 
 // Updates physics every frame update
-void PhysUpdate(){
+void PhysUpdate()
+{
     for (int y = 0; y < calcWindowHeight; y++)
     {
         for (int x = 0; x < calcWindowWidth; x++)
@@ -56,20 +56,54 @@ void PhysUpdate(){
             switch (ColorAtPoint((POINT2D){x, y}))
             {
             case _MaterialSand:
-                if(y > 0 && ColorAtPoint((POINT2D){x, y-1}) == _backgroundColor){
-                    PixelsDrawPoint((POINT2D){x, y-1}, _MaterialSand);
+                if (y > 0 && ColorAtPoint((POINT2D){x, y - 1}) != _MaterialSolid && ColorAtPoint((POINT2D){x, y - 1}) != _MaterialSand)
+                {
+                    unsigned int tempMaterial = ColorAtPoint((POINT2D){x, y - 1});
+                    PixelsDrawPoint((POINT2D){x, y - 1}, _MaterialSand);
+                    PixelsDrawPoint((POINT2D){x, y}, tempMaterial);
+                }
+                else if (y > 0 && x > 0 && ColorAtPoint((POINT2D){x, y - 1}) != _MaterialSolid && ColorAtPoint((POINT2D){x - 1, y - 1}) != _MaterialSand)
+                {
+                    unsigned int tempMaterial = ColorAtPoint((POINT2D){x - 1, y - 1});
+                    PixelsDrawPoint((POINT2D){x - 1, y - 1}, _MaterialSand);
+                    PixelsDrawPoint((POINT2D){x, y}, tempMaterial);
+                }
+                else if (y > 0 && x < calcWindowWidth && ColorAtPoint((POINT2D){x, y - 1}) != _MaterialSolid && ColorAtPoint((POINT2D){x + 1, y - 1}) != _MaterialSand)
+                {
+                    unsigned int tempMaterial = ColorAtPoint((POINT2D){x + 1, y - 1});
+                    PixelsDrawPoint((POINT2D){x + 1, y - 1}, _MaterialSand);
+                    PixelsDrawPoint((POINT2D){x, y}, tempMaterial);
+                }
+                break;
+
+            case _MaterialWater:
+                if (y > 0 && ColorAtPoint((POINT2D){x, y - 1}) == _backgroundColor)
+                {
+                    PixelsDrawPoint((POINT2D){x, y - 1}, _MaterialWater);
                     PixelsDrawPoint((POINT2D){x, y}, _backgroundColor);
                 }
-                else if(y > 0 && x > 0 && ColorAtPoint((POINT2D){x-1, y-1}) == _backgroundColor){
-                    PixelsDrawPoint((POINT2D){x-1, y-1}, _MaterialSand);
+                else if (y > 0 && x > 0 && ColorAtPoint((POINT2D){x - 1, y - 1}) == _backgroundColor)
+                {
+                    PixelsDrawPoint((POINT2D){x - 1, y - 1}, _MaterialWater);
                     PixelsDrawPoint((POINT2D){x, y}, _backgroundColor);
                 }
-                else if(y > 0 && x < calcWindowWidth && ColorAtPoint((POINT2D){x+1, y-1}) == _backgroundColor){
-                    PixelsDrawPoint((POINT2D){x+1, y-1}, _MaterialSand);
+                else if (y > 0 && x < calcWindowWidth && ColorAtPoint((POINT2D){x + 1, y - 1}) == _backgroundColor)
+                {
+                    PixelsDrawPoint((POINT2D){x + 1, y - 1}, _MaterialWater);
+                    PixelsDrawPoint((POINT2D){x, y}, _backgroundColor);
+                }
+                else if (x > 0 && ColorAtPoint((POINT2D){x - 1, y}) == _backgroundColor)
+                {
+                    PixelsDrawPoint((POINT2D){x - 1, y}, _MaterialWater);
+                    PixelsDrawPoint((POINT2D){x, y}, _backgroundColor);
+                }
+                else if (x < calcWindowWidth && ColorAtPoint((POINT2D){x + 1, y}) == _backgroundColor)
+                {
+                    PixelsDrawPoint((POINT2D){x + 1, y}, _MaterialWater);
                     PixelsDrawPoint((POINT2D){x, y}, _backgroundColor);
                 }
                 break;
-            
+
             default:
                 break;
             }
