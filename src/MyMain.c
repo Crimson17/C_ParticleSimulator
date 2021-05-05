@@ -13,54 +13,76 @@ void WindowProperties()
 {
     // Screen size
     _windowWidth = 1800;
-    _windowHeight = 900 + 40;
+    _windowHeight = 900;
     // Default background color
     _backgroundColor = _ColorKrimzoFav;
     // If the fps is set to 0 or less there will be no frame limitations
     _fps = 0;
-    //  Hides the console
+    // Hides the console
     _hideConsole = 1;
+    // Size of the drawing brush
+    _brushSize = 10;
 }
 
 // Gets called once before frame rendering has started
 int MyMain(void)
 {
-    PixelsDrawRectangle((POINT2D){300, 100}, (POINT2D){600, 250}, _MaterialSolid);
-
     return 0;
 }
 
-int frameCounter = 0;
-int randColor = 0;
+int solidMaterialExists = 0;
 // Gets called ever frame update
 void FrameUpdate(MSG message)
 {
     if (message.wParam == 1)
     {
-        POINT2D mouseCoords = {LOWORD(message.lParam), abs(HIWORD(message.lParam) - _windowHeight) - 40};
-        PixelsBrush(mouseCoords, 7, _MaterialSand);
+        POINT2D mouseCoords = {LOWORD(message.lParam), abs(HIWORD(message.lParam) - _windowHeight)};
+        PixelsBrush(mouseCoords, _brushSize, _MaterialSand);
     }
-    if (message.wParam == 2)
+    else if (message.wParam == 2)
     {
-        POINT2D mouseCoords = {LOWORD(message.lParam), abs(HIWORD(message.lParam) - _windowHeight) - 40};
-        PixelsBrush(mouseCoords, 7, _MaterialWater);
+        POINT2D mouseCoords = {LOWORD(message.lParam), abs(HIWORD(message.lParam) - _windowHeight)};
+        PixelsBrush(mouseCoords, _brushSize, _MaterialWater);
+    }
+    else if (message.wParam == 16)
+    {
+        POINT2D mouseCoords = {LOWORD(message.lParam), abs(HIWORD(message.lParam) - _windowHeight)};
+        PixelsBrush(mouseCoords, _brushSize, _MaterialSolid);
+        solidMaterialExists = 1;
+    }
+    else if (message.wParam == 32 && solidMaterialExists)
+    {
+        for (int i = 0; i < _pixelMemoryLen; i++)
+        {
+            if (*(_pixelMemory + i) == _MaterialSolid)
+            {
+                *(_pixelMemory + i) = _MaterialSolidExploded;
+            }
+        }
+        solidMaterialExists = 0;
     }
 }
 
 // Updates physics every frame update
 void PhysUpdate()
 {
-    for (int y = 0; y < calcWindowHeight; y++)
+    POINT2D tempPoint = {0};
+    for (int y = 0; y < _windowHeight; y++)
     {
-        for (int x = 0; x < calcWindowWidth; x++)
+        for (int x = 0; x < _windowWidth; x++)
         {
-            switch (ColorAtPoint((POINT2D){x, y}))
+            tempPoint.x = x;
+            tempPoint.y = y;
+            switch (ColorAtPoint(tempPoint))
             {
             case _MaterialSand:
-                MaterialLogicSand((POINT2D){x, y});
+                MaterialLogicSand(tempPoint);
                 break;
             case _MaterialWater:
-                MaterialLogicWater((POINT2D){x, y});
+                MaterialLogicWater(tempPoint);
+                break;
+            case _MaterialSolidExploded:
+                MaterialLogicSolidExploded(tempPoint);
                 break;
             default:
                 break;

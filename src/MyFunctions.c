@@ -14,9 +14,10 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
     LRESULT result;
     switch (message)
     {
-    // Stops the window loop if the window message was WM_CLOSE
-    case WM_CLOSE:
-        globalRunning = 0;
+    case WM_CHAR:
+        if(wParam == 27){
+            globalRunning = 0;
+        }
         break;
     default:
         result = DefWindowProc(window, message, wParam, lParam);
@@ -27,19 +28,20 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
 
 // Returns a color at the point
 unsigned int ColorAtPoint(POINT2D point){
-    return *(_pixelMemory + ((int)point.x + ((int)point.y * calcWindowWidth)));
+    return *(_pixelMemory + ((int)point.x + ((int)point.y * _windowWidth)));
 }
 
 void PixelsBrush(POINT2D centerPoint, int brushSize, int color){
     for(int i=0; i<brushSize; i++){
-        PixelsDrawCircle(centerPoint, (POINT2D){centerPoint.x + i + 1, centerPoint.y}, color);
+        POINT2D tempPoint = {centerPoint.x + i + 1, centerPoint.y};
+        PixelsDrawCircle(centerPoint, tempPoint, color);
     }
 }
 
 // Draws a custom colored pixel
 void PixelsDrawPoint(POINT2D point, int color)
 {
-    *(_pixelMemory + ((int)point.x + ((int)point.y * calcWindowWidth))) = color;
+    *(_pixelMemory + ((int)point.x + ((int)point.y * _windowWidth))) = color;
 }
 
 // Draws a custom colored line on the window with the given points
@@ -83,10 +85,12 @@ void PixelsDrawTriangle(POINT2D point1, POINT2D point2, POINT2D point3, int colo
 
 // Draws a custom colored rectangle on the window with the given points
 void PixelsDrawRectangle(POINT2D point1, POINT2D point2, int color){
-    PixelsDrawLine(point1, (POINT2D){point1.x, point2.y}, color);
-    PixelsDrawLine(point1, (POINT2D){point2.x, point1.y}, color);
-    PixelsDrawLine((POINT2D){point1.x, point2.y}, point2, color);
-    PixelsDrawLine((POINT2D){point2.x, point1.y}, point2, color);
+    POINT2D tempPoint1 = {point1.x, point2.y};
+    POINT2D tempPoint2 = {point2.x, point1.y};
+    PixelsDrawLine(point1, tempPoint1, color);
+    PixelsDrawLine(point1, tempPoint2, color);
+    PixelsDrawLine(tempPoint1, point2, color);
+    PixelsDrawLine(tempPoint2, point2, color);
 }
 
 // Draws a custom colored circle on the window with the given points
@@ -109,18 +113,22 @@ void PixelsDrawCircle(POINT2D centerPoint, POINT2D outerPoint, int color)
 // Draws a vertical mask over the whole screen
 void PixelsVerticalMask(int color)
 {
-    for (int i = 0; i < calcWindowWidth; i += 2)
+    for (int i = 0; i < _windowWidth; i += 2)
     {
-        PixelsDrawLine((POINT2D){i, 0}, (POINT2D){i, calcWindowHeight}, color);
+        POINT2D tempPoint1 = {i, 0};
+        POINT2D tempPoint2 = {i, _windowHeight};
+        PixelsDrawLine(tempPoint1, tempPoint2, color);
     }
 }
 
 // Draws a horizontal mask over the whole screen
 void PixelsHorizontalMask(int color)
 {
-    for (int i = 0; i < calcWindowHeight; i += 2)
+    for (int i = 0; i < _windowHeight; i += 2)
     {
-        PixelsDrawLine((POINT2D){0, i}, (POINT2D){calcWindowWidth, i}, color);
+        POINT2D tempPoint1 = {0, i};
+        POINT2D tempPoint2 = {_windowWidth, i};
+        PixelsDrawLine(tempPoint1, tempPoint2, color);
     }
 }
 
@@ -151,11 +159,11 @@ float Point2D_Distance(POINT2D point1, POINT2D point2)
 // Returns true if point is inside the window
 int PointInWindow(POINT2D point)
 {
-    if (point.x < 0 || point.x > calcWindowWidth)
+    if (point.x < 0 || point.x > _windowWidth-1)
     {
         return 0;
     }
-    if (point.y < 0 || point.y > calcWindowHeight)
+    if (point.y < 0 || point.y > _windowHeight-1)
     {
         return 0;
     }
@@ -165,18 +173,14 @@ int PointInWindow(POINT2D point)
 // Creates a new vector from 2 given points
 VECTOR2D Vector_New(POINT2D point1, POINT2D point2)
 {
-    VECTOR2D outputVector = {0};
-    outputVector.i = point2.x - point1.x;
-    outputVector.j = point2.y - point1.y;
+    VECTOR2D outputVector = {point2.x - point1.x, point2.y - point1.y};
     return outputVector;
 }
 
 // Returns a length 1 vector with the same direction as the given vector
 VECTOR2D Vector_Normalize(VECTOR2D inputVector)
 {
-    VECTOR2D outputVector = {0};
-    outputVector.i = inputVector.i / Vector_Length(inputVector);
-    outputVector.j = inputVector.j / Vector_Length(inputVector);
+    VECTOR2D outputVector = {inputVector.i / Vector_Length(inputVector), inputVector.j / Vector_Length(inputVector)};
     return outputVector;
 }
 

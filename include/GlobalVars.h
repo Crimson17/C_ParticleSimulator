@@ -3,15 +3,17 @@
 #ifndef GLOBALVARS_H
 #define GLOBALVARS_H
 
+#define ScreenX GetSystemMetrics(SM_CXSCREEN)
+#define ScreenY GetSystemMetrics(SM_CYSCREEN)
+
 int _windowWidth;
 int _windowHeight;
 int _backgroundColor;
 float _fps;
 int _hideConsole;
+int _brushSize;
 unsigned int *_pixelMemory;
 int _pixelMemoryLen;
-int calcWindowWidth;
-int calcWindowHeight;
 
 int globalRunning;
 BITMAPINFO bitmap_info;

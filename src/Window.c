@@ -29,22 +29,20 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     RegisterClass(&window_class);
 
     // Create window and specify window properties
-    HWND window = CreateWindowEx(0, CLASS_NAME, "My Window", WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, _windowWidth, _windowHeight, 0, 0, hInstance, 0);
+    HWND window = CreateWindowEx(0, CLASS_NAME, 0, 0, (ScreenX - _windowWidth) / 2, (ScreenY - _windowHeight) / 2, _windowWidth, _windowHeight, 0, 0, hInstance, 0);
 
-    // Get window width and height
-    RECT rect;
-    GetClientRect(window, &rect);
-    calcWindowWidth = rect.right - rect.left;
-    calcWindowHeight = rect.bottom - rect.top;
+    // Remove window title bar
+    SetWindowLong(window, GWL_STYLE, 0);
+    ShowWindow(window, SW_SHOW);
 
     // Allocate memory for the pixels
-    _pixelMemoryLen = calcWindowWidth * calcWindowHeight;
+    _pixelMemoryLen = _windowWidth * _windowHeight;
     _pixelMemory = VirtualAlloc(0, _pixelMemoryLen * sizeof(unsigned int), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 
     // Pixel properties
     bitmap_info.bmiHeader.biSize = sizeof(bitmap_info.bmiHeader);
-    bitmap_info.bmiHeader.biWidth = calcWindowWidth;   // Window width
-    bitmap_info.bmiHeader.biHeight = calcWindowHeight; // Window height
+    bitmap_info.bmiHeader.biWidth = _windowWidth;   // Window width
+    bitmap_info.bmiHeader.biHeight = _windowHeight; // Window height
     bitmap_info.bmiHeader.biPlanes = 1;                // Old stuff, has to be 1 now
     bitmap_info.bmiHeader.biBitCount = 32;             // How many bits for each pixel
     bitmap_info.bmiHeader.biCompression = BI_RGB;      // Compression type, RI_RGB = no compression
@@ -83,7 +81,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         FrameUpdate(message);
         PhysUpdate();
         // Render bits from the memmory to screen
-        StretchDIBits(hdc, 0, 0, calcWindowWidth, calcWindowHeight, 0, 0, calcWindowWidth, calcWindowHeight, _pixelMemory, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
+        StretchDIBits(hdc, 0, 0, _windowWidth, _windowHeight, 0, 0, _windowWidth, _windowHeight, _pixelMemory, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
         Sleep(timeToSleep);
     }
 
