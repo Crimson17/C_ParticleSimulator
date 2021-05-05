@@ -53,7 +53,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     HDC hdc = GetDC(window);
 
     // Inital pixel colors
-    PixelsFillSolid(_ColorWhite);
+    PixelsFillSolid(_backgroundColor);
 
     // User stuff
     if (MyMain())
@@ -81,6 +81,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         }
         // Gets called every frame update
         FrameUpdate(message);
+        PhysUpdate();
         // Render bits from the memmory to screen
         StretchDIBits(hdc, 0, 0, calcWindowWidth, calcWindowHeight, 0, 0, calcWindowWidth, calcWindowHeight, _pixelMemory, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
         Sleep(timeToSleep);

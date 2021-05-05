@@ -25,6 +25,19 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
     return result;
 }
 
+// Returns a color at the point
+unsigned int ColorAtPoint(POINT2D point){
+    return *(_pixelMemory + ((int)point.x + ((int)point.y * calcWindowWidth)));
+}
+
+void PixelsBrush(POINT2D centerPoint, int color){
+    PixelsDrawPoint(centerPoint, color);
+    PixelsDrawPoint((POINT2D){centerPoint.x, centerPoint.y + 1}, color);
+    PixelsDrawPoint((POINT2D){centerPoint.x + 1, centerPoint.y}, color);
+    PixelsDrawPoint((POINT2D){centerPoint.x, centerPoint.y - 1}, color);
+    PixelsDrawPoint((POINT2D){centerPoint.x - 1, centerPoint.y}, color);
+}
+
 // Draws a custom colored pixel
 void PixelsDrawPoint(POINT2D point, int color)
 {

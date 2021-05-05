@@ -7,11 +7,14 @@
 void WindowProperties();
 int MyMain(void);
 void FrameUpdate(MSG message);
+void PhysUpdate();
 
 // Functions needed for window creation
 LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 
 // Pixel functions
+unsigned int ColorAtPoint(POINT2D point);
+void PixelsBrush(POINT2D centerPoint, int color);
 void PixelsDrawPoint(POINT2D point, int color);
 void PixelsDrawLine(POINT2D point1, POINT2D point2, int color);
 void PixelsDrawTriangle(POINT2D point1, POINT2D point2, POINT2D point3, int color);

@@ -5,8 +5,9 @@
 
 int _windowWidth;
 int _windowHeight;
-int _hideConsole;
+int _backgroundColor;
 float _fps;
+int _hideConsole;
 unsigned int *_pixelMemory;
 int _pixelMemoryLen;
 int calcWindowWidth;
@@ -16,6 +17,10 @@ int globalRunning;
 BITMAPINFO bitmap_info;
 
 #endif
+
+// Particle materials
+#define _MaterialSolid 0x8806CE
+#define _MaterialSand 0xEDD9AF
 
 // Color macros
 #define _ColorBlack 0x000000
