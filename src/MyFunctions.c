@@ -31,6 +31,7 @@ unsigned int ColorAtPoint(POINT2D point){
     return *(_pixelMemory + ((int)point.x + ((int)point.y * _windowWidth)));
 }
 
+// Draws a custom colored big dot on the given point
 void PixelsBrush(POINT2D centerPoint, int brushSize, int color){
     for(int i=0; i<brushSize; i++){
         POINT2D tempPoint = {centerPoint.x + i + 1, centerPoint.y};
