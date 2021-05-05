@@ -1,2 +1,2 @@
-# C_WindowRendering
-Learning how to render a window in C.
+# Particle System in C
+My simple particle system I made in C
