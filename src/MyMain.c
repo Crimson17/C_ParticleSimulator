@@ -34,22 +34,26 @@ int solidMaterialExists = 0;
 // Gets called ever frame update
 void FrameUpdate(MSG message)
 {
+    // Check for left mouse button
     if (message.wParam == 1)
     {
         POINT2D mouseCoords = {LOWORD(message.lParam), abs(HIWORD(message.lParam) - _windowHeight)};
         PixelsBrush(mouseCoords, _brushSize, _MaterialSand);
     }
+    // Check for right mouse button
     else if (message.wParam == 2)
     {
         POINT2D mouseCoords = {LOWORD(message.lParam), abs(HIWORD(message.lParam) - _windowHeight)};
         PixelsBrush(mouseCoords, _brushSize, _MaterialWater);
     }
+    // Check for middle mouse button
     else if (message.wParam == 16)
     {
         POINT2D mouseCoords = {LOWORD(message.lParam), abs(HIWORD(message.lParam) - _windowHeight)};
         PixelsBrush(mouseCoords, _brushSize, _MaterialSolid);
         solidMaterialExists = 1;
     }
+    // Check for spacebar
     else if (message.wParam == 32 && solidMaterialExists)
     {
         for (int i = 0; i < _pixelMemoryLen; i++)
@@ -66,6 +70,7 @@ void FrameUpdate(MSG message)
 // Updates physics every frame update
 void PhysUpdate()
 {
+    // Iterate through the whole window, and check for each color of the pixel, then call appropriate logic function
     POINT2D tempPoint = {0};
     for (int y = 0; y < _windowHeight; y++)
     {

@@ -3,6 +3,7 @@
 #ifndef MATERIALS_H
 #define MATERIALS_H
 
+// Particle logic functions
 void MaterialLogicSand(POINT2D location);
 void MaterialLogicWater(POINT2D location);
 void MaterialLogicSolidExploded(POINT2D location);

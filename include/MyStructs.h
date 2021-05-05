@@ -15,6 +15,7 @@ typedef struct Vector2D
     float j;
 } VECTOR2D;
 
+// Still not in use
 typedef struct Particle{
     POINT2D location;
     float velocity;

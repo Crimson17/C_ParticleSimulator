@@ -3,9 +3,8 @@
 #ifndef GLOBALVARS_H
 #define GLOBALVARS_H
 
-#define ScreenX GetSystemMetrics(SM_CXSCREEN)
-#define ScreenY GetSystemMetrics(SM_CYSCREEN)
-
+// Global variables
+int globalRunning;
 int _windowWidth;
 int _windowHeight;
 int _backgroundColor;
@@ -14,11 +13,11 @@ int _hideConsole;
 int _brushSize;
 unsigned int *_pixelMemory;
 int _pixelMemoryLen;
-
-int globalRunning;
 BITMAPINFO bitmap_info;
 
-#endif
+// Main screen size
+#define ScreenX GetSystemMetrics(SM_CXSCREEN)
+#define ScreenY GetSystemMetrics(SM_CYSCREEN)
 
 // Color macros
 #define _ColorBlack 0x000000
@@ -36,3 +35,5 @@ BITMAPINFO bitmap_info;
 #define _ColorBrown 0x804000
 #define _ColorGray 0x7D7D7D
 #define _ColorKrimzoFav 0x112233
+
+#endif
