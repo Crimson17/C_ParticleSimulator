@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "myfunctions.h": "c",
-        "cstdlib": "c"
-    }
-}
