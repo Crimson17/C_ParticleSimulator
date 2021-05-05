@@ -22,8 +22,6 @@ void WindowProperties()
     _hideConsole = 1;
     // Size of the drawing brush
     _brushSize = 10;
-    // Enable/Disable particle physics
-    _particlePhysics = 1;
 }
 
 // Gets called once before frame rendering has started
@@ -73,61 +71,59 @@ int frameSide = 1;
 // Updates physics every frame update
 void PhysUpdate()
 {
-    if (_particlePhysics)
+
+    // Iterate through the whole window, and check for each color of the pixel, then call appropriate logic function
+    POINT2D tempPoint = {0};
+    if (frameSide)
     {
-        // Iterate through the whole window, and check for each color of the pixel, then call appropriate logic function
-        POINT2D tempPoint = {0};
-        if (frameSide)
+        for (int y = 0; y < _windowHeight; y++)
         {
-            for (int y = 0; y < _windowHeight; y++)
+            for (int x = 0; x < _windowWidth; x++)
             {
-                for (int x = 0; x < _windowWidth; x++)
+                tempPoint.x = x;
+                tempPoint.y = y;
+                switch (ColorAtPoint(tempPoint))
                 {
-                    tempPoint.x = x;
-                    tempPoint.y = y;
-                    switch (ColorAtPoint(tempPoint))
-                    {
-                    case _MaterialSand:
-                        MaterialLogicSand(tempPoint);
-                        break;
-                    case _MaterialWater:
-                        MaterialLogicWater(tempPoint);
-                        break;
-                    case _MaterialRockParticles:
-                        MaterialLogicRockParticles(tempPoint);
-                        break;
-                    default:
-                        break;
-                    }
+                case _MaterialSand:
+                    MaterialLogicSand(tempPoint);
+                    break;
+                case _MaterialWater:
+                    MaterialLogicWater(tempPoint);
+                    break;
+                case _MaterialRockParticles:
+                    MaterialLogicRockParticles(tempPoint);
+                    break;
+                default:
+                    break;
                 }
             }
-            frameSide = 0;
         }
-        else
+        frameSide = 0;
+    }
+    else
+    {
+        for (int y = 0; y < _windowHeight; y++)
         {
-            for (int y = 0; y < _windowHeight; y++)
+            for (int x = _windowWidth; x >= 0; x--)
             {
-                for (int x = _windowWidth; x >= 0; x--)
+                tempPoint.x = x;
+                tempPoint.y = y;
+                switch (ColorAtPoint(tempPoint))
                 {
-                    tempPoint.x = x;
-                    tempPoint.y = y;
-                    switch (ColorAtPoint(tempPoint))
-                    {
-                    case _MaterialSand:
-                        MaterialLogicSand(tempPoint);
-                        break;
-                    case _MaterialWater:
-                        MaterialLogicWater(tempPoint);
-                        break;
-                    case _MaterialRockParticles:
-                        MaterialLogicRockParticles(tempPoint);
-                        break;
-                    default:
-                        break;
-                    }
+                case _MaterialSand:
+                    MaterialLogicSand(tempPoint);
+                    break;
+                case _MaterialWater:
+                    MaterialLogicWater(tempPoint);
+                    break;
+                case _MaterialRockParticles:
+                    MaterialLogicRockParticles(tempPoint);
+                    break;
+                default:
+                    break;
                 }
             }
-            frameSide = 1;
         }
+        frameSide = 1;
     }
 }
