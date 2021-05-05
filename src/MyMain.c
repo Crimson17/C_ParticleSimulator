@@ -12,8 +12,8 @@
 void WindowProperties()
 {
     // Screen size
-    _windowWidth = 1800;
-    _windowHeight = 900;
+    _windowWidth = ScreenX - 100;
+    _windowHeight = _windowWidth / 2;
     // Default background color
     _backgroundColor = _ColorKrimzoFav;
     // If the fps is set to 0 or less there will be no frame limitations
