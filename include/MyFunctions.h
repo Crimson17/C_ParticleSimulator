@@ -1,3 +1,4 @@
+#include <windows.h>
 #include "..\include\MyStructs.h"
 
 #ifndef MYFUNCTIONS_H

@@ -18,11 +18,6 @@ BITMAPINFO bitmap_info;
 
 #endif
 
-// Particle materials
-#define _MaterialSolid 0x8806CE
-#define _MaterialSand 0xEDD9AF
-#define _MaterialWater 0x2389DA
-
 // Color macros
 #define _ColorBlack 0x000000
 #define _ColorWhite 0xFFFFFF

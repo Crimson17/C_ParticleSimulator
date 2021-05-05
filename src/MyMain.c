@@ -6,6 +6,7 @@
 #include "..\include\MyFunctions.h"
 #include "..\include\MyStructs.h"
 #include "..\include\GlobalVars.h"
+#include "..\include\Materials.h"
 
 // Window properties duh
 void WindowProperties()
@@ -56,54 +57,11 @@ void PhysUpdate()
             switch (ColorAtPoint((POINT2D){x, y}))
             {
             case _MaterialSand:
-                if (y > 0 && ColorAtPoint((POINT2D){x, y - 1}) != _MaterialSolid && ColorAtPoint((POINT2D){x, y - 1}) != _MaterialSand)
-                {
-                    unsigned int tempMaterial = ColorAtPoint((POINT2D){x, y - 1});
-                    PixelsDrawPoint((POINT2D){x, y - 1}, _MaterialSand);
-                    PixelsDrawPoint((POINT2D){x, y}, tempMaterial);
-                }
-                else if (y > 0 && x > 0 && ColorAtPoint((POINT2D){x, y - 1}) != _MaterialSolid && ColorAtPoint((POINT2D){x - 1, y - 1}) != _MaterialSand)
-                {
-                    unsigned int tempMaterial = ColorAtPoint((POINT2D){x - 1, y - 1});
-                    PixelsDrawPoint((POINT2D){x - 1, y - 1}, _MaterialSand);
-                    PixelsDrawPoint((POINT2D){x, y}, tempMaterial);
-                }
-                else if (y > 0 && x < calcWindowWidth && ColorAtPoint((POINT2D){x, y - 1}) != _MaterialSolid && ColorAtPoint((POINT2D){x + 1, y - 1}) != _MaterialSand)
-                {
-                    unsigned int tempMaterial = ColorAtPoint((POINT2D){x + 1, y - 1});
-                    PixelsDrawPoint((POINT2D){x + 1, y - 1}, _MaterialSand);
-                    PixelsDrawPoint((POINT2D){x, y}, tempMaterial);
-                }
+                MaterialLogicSand((POINT2D){x, y});
                 break;
-
             case _MaterialWater:
-                if (y > 0 && ColorAtPoint((POINT2D){x, y - 1}) == _backgroundColor)
-                {
-                    PixelsDrawPoint((POINT2D){x, y - 1}, _MaterialWater);
-                    PixelsDrawPoint((POINT2D){x, y}, _backgroundColor);
-                }
-                else if (y > 0 && x > 0 && ColorAtPoint((POINT2D){x - 1, y - 1}) == _backgroundColor)
-                {
-                    PixelsDrawPoint((POINT2D){x - 1, y - 1}, _MaterialWater);
-                    PixelsDrawPoint((POINT2D){x, y}, _backgroundColor);
-                }
-                else if (y > 0 && x < calcWindowWidth && ColorAtPoint((POINT2D){x + 1, y - 1}) == _backgroundColor)
-                {
-                    PixelsDrawPoint((POINT2D){x + 1, y - 1}, _MaterialWater);
-                    PixelsDrawPoint((POINT2D){x, y}, _backgroundColor);
-                }
-                else if (x > 0 && ColorAtPoint((POINT2D){x - 1, y}) == _backgroundColor)
-                {
-                    PixelsDrawPoint((POINT2D){x - 1, y}, _MaterialWater);
-                    PixelsDrawPoint((POINT2D){x, y}, _backgroundColor);
-                }
-                else if (x < calcWindowWidth && ColorAtPoint((POINT2D){x + 1, y}) == _backgroundColor)
-                {
-                    PixelsDrawPoint((POINT2D){x + 1, y}, _MaterialWater);
-                    PixelsDrawPoint((POINT2D){x, y}, _backgroundColor);
-                }
+                MaterialLogicWater((POINT2D){x, y});
                 break;
-
             default:
                 break;
             }
