@@ -22,6 +22,8 @@ void WindowProperties()
     _hideConsole = 1;
     // Size of the drawing brush
     _brushSize = 10;
+    // Enable/Disable particle physics
+    _particlePhysics = 1;
 }
 
 // Gets called once before frame rendering has started
@@ -50,7 +52,7 @@ void FrameUpdate(MSG message)
     else if (message.wParam == 16)
     {
         POINT2D mouseCoords = {LOWORD(message.lParam), abs(HIWORD(message.lParam) - _windowHeight)};
-        PixelsBrush(mouseCoords, _brushSize, _MaterialSolid);
+        PixelsBrush(mouseCoords, _brushSize, _MaterialRockSolid);
         solidMaterialExists = 1;
     }
     // Check for spacebar
@@ -58,40 +60,74 @@ void FrameUpdate(MSG message)
     {
         for (int i = 0; i < _pixelMemoryLen; i++)
         {
-            if (*(_pixelMemory + i) == _MaterialSolid)
+            if (*(_pixelMemory + i) == _MaterialRockSolid)
             {
-                *(_pixelMemory + i) = _MaterialSolidExploded;
+                *(_pixelMemory + i) = _MaterialRockParticles;
             }
         }
         solidMaterialExists = 0;
     }
 }
 
+int frameSide = 1;
 // Updates physics every frame update
 void PhysUpdate()
 {
-    // Iterate through the whole window, and check for each color of the pixel, then call appropriate logic function
-    POINT2D tempPoint = {0};
-    for (int y = 0; y < _windowHeight; y++)
+    if (_particlePhysics)
     {
-        for (int x = 0; x < _windowWidth; x++)
+        // Iterate through the whole window, and check for each color of the pixel, then call appropriate logic function
+        POINT2D tempPoint = {0};
+        if (frameSide)
         {
-            tempPoint.x = x;
-            tempPoint.y = y;
-            switch (ColorAtPoint(tempPoint))
+            for (int y = 0; y < _windowHeight; y++)
             {
-            case _MaterialSand:
-                MaterialLogicSand(tempPoint);
-                break;
-            case _MaterialWater:
-                MaterialLogicWater(tempPoint);
-                break;
-            case _MaterialSolidExploded:
-                MaterialLogicSolidExploded(tempPoint);
-                break;
-            default:
-                break;
+                for (int x = 0; x < _windowWidth; x++)
+                {
+                    tempPoint.x = x;
+                    tempPoint.y = y;
+                    switch (ColorAtPoint(tempPoint))
+                    {
+                    case _MaterialSand:
+                        MaterialLogicSand(tempPoint);
+                        break;
+                    case _MaterialWater:
+                        MaterialLogicWater(tempPoint);
+                        break;
+                    case _MaterialRockParticles:
+                        MaterialLogicRockParticles(tempPoint);
+                        break;
+                    default:
+                        break;
+                    }
+                }
             }
+            frameSide = 0;
+        }
+        else
+        {
+            for (int y = 0; y < _windowHeight; y++)
+            {
+                for (int x = _windowWidth; x >= 0; x--)
+                {
+                    tempPoint.x = x;
+                    tempPoint.y = y;
+                    switch (ColorAtPoint(tempPoint))
+                    {
+                    case _MaterialSand:
+                        MaterialLogicSand(tempPoint);
+                        break;
+                    case _MaterialWater:
+                        MaterialLogicWater(tempPoint);
+                        break;
+                    case _MaterialRockParticles:
+                        MaterialLogicRockParticles(tempPoint);
+                        break;
+                    default:
+                        break;
+                    }
+                }
+            }
+            frameSide = 1;
         }
     }
 }

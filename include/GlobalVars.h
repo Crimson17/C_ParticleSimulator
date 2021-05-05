@@ -11,6 +11,7 @@ int _backgroundColor;
 float _fps;
 int _hideConsole;
 int _brushSize;
+int _particlePhysics;
 unsigned int *_pixelMemory;
 int _pixelMemoryLen;
 BITMAPINFO bitmap_info;

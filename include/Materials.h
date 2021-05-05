@@ -6,12 +6,12 @@
 // Particle logic functions
 void MaterialLogicSand(POINT2D location);
 void MaterialLogicWater(POINT2D location);
-void MaterialLogicSolidExploded(POINT2D location);
-
-#endif
+void MaterialLogicRockParticles(POINT2D location);
 
 // Particle materials
-#define _MaterialSolid 0x414042
-#define _MaterialSolidExploded 0x58595B
+#define _MaterialRockSolid 0x414042
+#define _MaterialRockParticles 0x58595B
 #define _MaterialSand 0xEDD9AF
 #define _MaterialWater 0x2389DA
+
+#endif

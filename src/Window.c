@@ -35,7 +35,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     SetWindowLong(window, GWL_STYLE, 0);
     ShowWindow(window, SW_SHOW);
 
-    // Allocate memory for the pixels
+    // Allocate memory for pixel data
     _pixelMemoryLen = _windowWidth * _windowHeight;
     _pixelMemory = VirtualAlloc(0, _pixelMemoryLen * sizeof(unsigned int), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 
