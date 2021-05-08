@@ -13,8 +13,8 @@
 void WindowProperties()
 {
     // Screen size
-    _windowWidth = ScreenX - 100;
-    _windowHeight = _windowWidth / 2;
+    _windowWidth = 600;//ScreenX - 100;
+    _windowHeight = 600;//_windowWidth / 2;
     // Default background color
     _backgroundColor = _ColorKrimzoFav;
     // Hides the console
