@@ -3,8 +3,9 @@
 #include <time.h>
 #include <windows.h>
 #include <stdint.h>
-#include "..\include\Functions.h"
+#include "..\include\Updates.h"
 #include "..\include\Structures.h"
+#include "..\include\Functions.h"
 #include "..\include\GVariables.h"
 #include "..\include\Materials.h"
 
@@ -16,23 +17,15 @@ void WindowProperties()
     _windowHeight = _windowWidth / 2;
     // Default background color
     _backgroundColor = _ColorKrimzoFav;
-    // If the fps is set to 0 or less there will be no frame limitations
-    _fps = 0;
     // Hides the console
     _hideConsole = 1;
     // Size of the drawing brush
     _brushSize = 10;
 }
 
-// Gets called once before frame rendering has started
-int MyMain(void)
-{
-    return 0;
-}
-
 int solidMaterialExists = 0;
 // Gets called ever frame update
-void FrameUpdate(MSG message)
+void Input(MSG message)
 {
     // Check for left mouse button
     if (message.wParam == 1)
@@ -56,11 +49,11 @@ void FrameUpdate(MSG message)
     // Check for spacebar
     else if (message.wParam == 32 && solidMaterialExists)
     {
-        for (int i = 0; i < _pixelMemoryLen; i++)
+        for (int i = 0; i < _memoryLen; i++)
         {
-            if (*(_pixelMemory + i) == _MaterialRockSolid)
+            if (*(_pixels + i) == _MaterialRockSolid)
             {
-                *(_pixelMemory + i) = _MaterialRockParticles;
+                *(_pixels + i) = _MaterialRockParticles;
             }
         }
         solidMaterialExists = 0;
@@ -68,12 +61,11 @@ void FrameUpdate(MSG message)
 }
 
 int frameSide = 1;
+POINT2D tempPoint = {0};
 // Updates physics every frame update
 void PhysUpdate()
 {
-
     // Iterate through the whole window, and check for each color of the pixel, then call appropriate logic function
-    POINT2D tempPoint = {0};
     if (frameSide)
     {
         for (int y = 0; y < _windowHeight; y++)

@@ -6,19 +6,21 @@
 #include "..\include\Functions.h"
 #include "..\include\Structures.h"
 #include "..\include\GVariables.h"
+#include "..\include\Updates.h"
+
+// Functions needed for window creation
+LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
 {
-    // Win props
-    WindowProperties();
     // Setup
+    WindowProperties();
     if (_hideConsole)
     {
         FreeConsole();
     }
     srand((unsigned)time(NULL));
-    globalRunning = 1;
-    float timeToSleep = 0.0;
+    _globalRunning = 1;
 
     // Define window class
     char *CLASS_NAME = "GameWindow";
@@ -35,17 +37,24 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     SetWindowLong(window, GWL_STYLE, 0);
     ShowWindow(window, SW_SHOW);
 
-    // Allocate memory for pixel data
-    _pixelMemoryLen = _windowWidth * _windowHeight;
-    _pixelMemory = VirtualAlloc(0, _pixelMemoryLen * sizeof(unsigned int), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+    // Allocate memory
+    _memoryLen = _windowWidth * _windowHeight;
+    _pixels = (unsigned int*)calloc(_memoryLen, sizeof(unsigned int));
+    if(_pixels == NULL){
+        return -1;
+    }
+    _particles = (PARTICLE *)calloc(_memoryLen, sizeof(PARTICLE));
+    if(_particles == NULL){
+        return -1;
+    }
 
     // Pixel properties
-    bitmap_info.bmiHeader.biSize = sizeof(bitmap_info.bmiHeader);
-    bitmap_info.bmiHeader.biWidth = _windowWidth;   // Window width
-    bitmap_info.bmiHeader.biHeight = _windowHeight; // Window height
-    bitmap_info.bmiHeader.biPlanes = 1;                // Old stuff, has to be 1 now
-    bitmap_info.bmiHeader.biBitCount = 32;             // How many bits for each pixel
-    bitmap_info.bmiHeader.biCompression = BI_RGB;      // Compression type, RI_RGB = no compression
+    _bitmap_info.bmiHeader.biSize = sizeof(_bitmap_info.bmiHeader);
+    _bitmap_info.bmiHeader.biWidth = _windowWidth;   // Window width
+    _bitmap_info.bmiHeader.biHeight = _windowHeight; // Window height
+    _bitmap_info.bmiHeader.biPlanes = 1;                // Old stuff, has to be 1 now
+    _bitmap_info.bmiHeader.biBitCount = 32;             // How many bits for each pixel
+    _bitmap_info.bmiHeader.biCompression = BI_RGB;      // Compression type, RI_RGB = no compression
 
     // Access window, so it can be rendered to
     HDC hdc = GetDC(window);
@@ -53,20 +62,8 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     // Inital pixel colors
     PixelsFillSolid(_backgroundColor);
 
-    // User stuff
-    if (MyMain())
-    {
-        return -1;
-    }
-
-    // Calculate time needed to sleep for constant fps
-    if (_fps > 0)
-    {
-        timeToSleep = (1 / _fps) * 1000;
-    }
-
     // Keep window open
-    while (globalRunning)
+    while (_globalRunning)
     {
         // Message = Pressed Keys (Something like a key listener)
         MSG message;
@@ -77,15 +74,36 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
             // Send message to MSG message
             DispatchMessage(&message);
         }
-        // Gets called every frame update
-        FrameUpdate(message);
+        // Handle the input
+        Input(message);
+        // Update the particle physics
         PhysUpdate();
+        // Write particles to pixel memory 
+        //ParticlesToPixels();
         // Render bits from the memmory to screen
-        StretchDIBits(hdc, 0, 0, _windowWidth, _windowHeight, 0, 0, _windowWidth, _windowHeight, _pixelMemory, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
-        Sleep(timeToSleep);
+        StretchDIBits(hdc, 0, 0, _windowWidth, _windowHeight, 0, 0, _windowWidth, _windowHeight, _pixels, &_bitmap_info, DIB_RGB_COLORS, SRCCOPY);
     }
 
-    // Free pixel memory
-    free(_pixelMemory);
+    // Free memory
+    free(_pixels);
+    free(_particles);
     return 0;
+}
+
+// Communicates with windows
+LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    LRESULT result;
+    switch (message)
+    {
+    case WM_CHAR:
+        if(wParam == 27){
+            _globalRunning = 0;
+        }
+        break;
+    default:
+        result = DefWindowProc(window, message, wParam, lParam);
+        break;
+    }
+    return result;
 }

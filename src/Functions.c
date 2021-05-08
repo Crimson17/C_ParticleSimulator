@@ -8,27 +8,17 @@
 #include "..\include\Structures.h"
 #include "..\include\GVariables.h"
 
-// Communicates with windows
-LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    LRESULT result;
-    switch (message)
-    {
-    case WM_CHAR:
-        if(wParam == 27){
-            globalRunning = 0;
-        }
-        break;
-    default:
-        result = DefWindowProc(window, message, wParam, lParam);
-        break;
+
+//
+void ParticlesToPixels(){
+    for(int i=0; i<_memoryLen; i++){
+        *(_pixels + i) = _particles->color;
     }
-    return result;
 }
 
 // Returns a color at the point
 unsigned int ColorAtPoint(POINT2D point){
-    return *(_pixelMemory + ((int)point.x + ((int)point.y * _windowWidth)));
+    return *(_pixels + ((int)point.x + ((int)point.y * _windowWidth)));
 }
 
 // Draws a custom colored big dot on the given point
@@ -42,7 +32,7 @@ void PixelsBrush(POINT2D centerPoint, int brushSize, int color){
 // Draws a custom colored pixel
 void PixelsDrawPoint(POINT2D point, int color)
 {
-    *(_pixelMemory + ((int)point.x + ((int)point.y * _windowWidth))) = color;
+    *(_pixels + ((int)point.x + ((int)point.y * _windowWidth))) = color;
 }
 
 // Draws a custom colored line on the window with the given points
@@ -136,18 +126,18 @@ void PixelsHorizontalMask(int color)
 // Fill memory with randomly colored pixels
 void PixelsFillRand()
 {
-    for (int i = 0; i < _pixelMemoryLen; i++)
+    for (int i = 0; i < _memoryLen; i++)
     {
-        *(_pixelMemory + i) = 0 + (float)rand() / RAND_MAX * (16777216); // 0xFFFFFF = 16777215
+        *(_pixels + i) = 0 + (float)rand() / RAND_MAX * (16777216); // 0xFFFFFF = 16777215
     }
 }
 
 // Fill memory with a single color
 void PixelsFillSolid(int color)
 {
-    for (int i = 0; i < _pixelMemoryLen; i++)
+    for (int i = 0; i < _memoryLen; i++)
     {
-        *(_pixelMemory + i) = color;
+        *(_pixels + i) = color;
     }
 }
 

@@ -15,4 +15,12 @@ typedef struct Vector2D
     float j;
 } VECTOR2D;
 
+// Particle
+typedef struct Particle{
+    unsigned int color;
+    VECTOR2D velocity;
+    int beenUpdated;
+    int age;
+}PARTICLE;
+
 #endif

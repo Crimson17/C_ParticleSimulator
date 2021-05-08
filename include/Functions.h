@@ -4,14 +4,8 @@
 #ifndef MYFUNCTIONS_H
 #define MYFUNCTIONS_H
 
-// Functions included in MyMain.c
-void WindowProperties();
-int MyMain(void);
-void FrameUpdate(MSG message);
-void PhysUpdate();
-
-// Functions needed for window creation
-LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
+// Particle functions
+void ParticlesToPixels();
 
 // Pixel functions
 unsigned int ColorAtPoint(POINT2D point);
