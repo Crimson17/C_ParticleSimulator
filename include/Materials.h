@@ -1,4 +1,4 @@
-#include "..\include\MyStructs.h"
+#include "..\include\Structures.h"
 
 #ifndef MATERIALS_H
 #define MATERIALS_H

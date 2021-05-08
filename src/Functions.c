@@ -4,9 +4,9 @@
 #include <time.h>
 #include <math.h>
 #include <Windows.h>
-#include "..\include\MyFunctions.h"
-#include "..\include\MyStructs.h"
-#include "..\include\GlobalVars.h"
+#include "..\include\Functions.h"
+#include "..\include\Structures.h"
+#include "..\include\GVariables.h"
 
 // Communicates with windows
 LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam)

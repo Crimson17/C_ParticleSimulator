@@ -3,9 +3,9 @@
 #include <time.h>
 #include <windows.h>
 #include <stdint.h>
-#include "..\include\MyFunctions.h"
-#include "..\include\MyStructs.h"
-#include "..\include\GlobalVars.h"
+#include "..\include\Functions.h"
+#include "..\include\Structures.h"
+#include "..\include\GVariables.h"
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
 {

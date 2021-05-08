@@ -1,5 +1,5 @@
 #include <windows.h>
-#include "..\include\MyStructs.h"
+#include "..\include\Structures.h"
 
 #ifndef MYFUNCTIONS_H
 #define MYFUNCTIONS_H

@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "..\include\MyFunctions.h"
-#include "..\include\MyStructs.h"
-#include "..\include\GlobalVars.h"
+#include "..\include\Functions.h"
+#include "..\include\Structures.h"
+#include "..\include\GVariables.h"
 #include "..\include\Materials.h"
 
 // Particle logic for sand
