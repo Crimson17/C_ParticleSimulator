@@ -4,12 +4,12 @@
 #include <time.h>
 #include <math.h>
 #include <Windows.h>
-#include "MyFunctions.h"
 #include "MyStructs.h"
+#include "MyFunctions.h"
 
 
 // Recolor all pixels to particles, RED and BLUE channels need to be switched because it's 24bit color
-void ParticlesToPixelsParallel(int i){
+void ParticlesToPixelsParallel(int i) {
     *(pixels + 3 * i) = (particles + i)->color.b;
     *(pixels + 3 * i + 1) = (particles + i)->color.g;
     *(pixels + 3 * i + 2) = (particles + i)->color.r;
@@ -17,6 +17,12 @@ void ParticlesToPixelsParallel(int i){
 }
 void ParticlesToPixels() {
     ParallelFor(0, particleCount, 4, ParticlesToPixelsParallel);
+}
+
+void SwitchParticles(POINT2D firstParticle, POINT2D secondParticle) {
+    PARTICLE tempParticle = *(particles + (firstParticle.y * windowWidth) + firstParticle.x);
+    *(particles + (firstParticle.y * windowWidth) + firstParticle.x) = *(particles + (secondParticle.y * windowWidth) + secondParticle.x);
+    *(particles + (secondParticle.y * windowWidth) + secondParticle.x) = tempParticle;
 }
 
 // Compares 2 colors

@@ -4,8 +4,9 @@
 #include <sys/time.h>
 #include <windows.h>
 #include <stdint.h>
-#include "MyFunctions.h"
 #include "MyStructs.h"
+#include "Materials.h"
+#include "MyFunctions.h"
 
 
 // Screen size
@@ -14,7 +15,7 @@ int windowHeight = 400;
 // Default background color
 COLOR backgroundColor = { 11, 22, 33 };
 // Hides the console
-int hideConsole = 0;
+int hideConsole = 1;
 // Size of the drawing brush
 int brushSize = 10;
 // For game loop
@@ -82,9 +83,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 
     // Keep window open
     MSG message;
-    struct timeval frameStartTime, frameEndTime;
     while (globalRunning) {
-        gettimeofday(&frameStartTime, NULL);
         // Message = Pressed Keys (Something like a key listener)
         while (PeekMessage(&message, window, 0, 0, PM_REMOVE)) {
             // Translate key code to real char
@@ -100,10 +99,6 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         ParticlesToPixels();
         // Render bits from the memmory to screen
         StretchDIBits(hdc, 0, 0, windowWidth, windowHeight, 0, 0, windowWidth, windowHeight, pixels, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
-        // Delta time calculations
-        gettimeofday(&frameEndTime, NULL);
-        deltaTime = RawTimeVal(frameStartTime, frameEndTime, 2);
-        printf("%lf\n", deltaTime);
     }
 
     // Free memory
@@ -121,6 +116,9 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
         if (wParam == 27) {
             globalRunning = 0;
         }
+        break;
+    case WM_CLOSE:
+        globalRunning = 0;
         break;
     default:
         result = DefWindowProc(window, message, wParam, lParam);

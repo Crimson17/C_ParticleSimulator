@@ -9,6 +9,7 @@ void Brush(POINT2D centerPoint, int brushSize, COLOR color);
 void DrawPoint(POINT2D point, COLOR color);
 void DrawCircle(POINT2D centerPoint, POINT2D outerPoint, COLOR color);
 void ParticlesToPixels();
+void SwitchParticles(POINT2D firstParticle, POINT2D secondParticle);
 
 // Pixel/Color functions
 int ColorCompare(COLOR color1, COLOR color2);
@@ -24,6 +25,7 @@ float PointDistance(POINT2D point1, POINT2D point2);
 void WindowProperties();
 void Input(MSG message);
 void PhysUpdate();
+void ParallelPhysUpdate();
 
 // My threading functions
 void ParallelFor(int startInclusive, int endExclusive, int threadCount, void (*funcToRun)(int));

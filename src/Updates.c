@@ -4,8 +4,8 @@
 #include <windows.h>
 #include <stdint.h>
 #include "MyStructs.h"
-#include "MyFunctions.h"
 #include "Materials.h"
+#include "MyFunctions.h"
 
 
 int solidMaterialExists = 0;
@@ -43,14 +43,14 @@ void Input(MSG message)
         for (int i = 0; i < particleCount; i++) {
             (particles + i)->color = backgroundColor;
             (particles + i)->updated = 0;
-            (particles + i)->velocity = 0.0;
         }
         solidMaterialExists = 0;
     }
 }
 
 // Updates physics every frame update
-void PhysUpdateParall(int i) {
+int frameSide = 1;
+void PhysUpdate1(int i) {
     POINT2D tempPoint = { i % windowWidth, i / windowWidth };
     if (ColorCompare(ColorAtPoint(tempPoint), _MaterialSand)) {
         MaterialLogicSand(tempPoint);
@@ -62,7 +62,7 @@ void PhysUpdateParall(int i) {
         MaterialLogicRockParticle(tempPoint);
     }
 }
-void PhysUpdateParallNeg(int i) {
+void PhysUpdate2(int i) {
     POINT2D tempPoint = { 0, i / windowWidth };
     i = particleCount - 1 - i;
     tempPoint.x = i % windowWidth;
@@ -76,15 +76,29 @@ void PhysUpdateParallNeg(int i) {
         MaterialLogicRockParticle(tempPoint);
     }
 }
-int frameSide = 1;
 void PhysUpdate()
 {
     // Iterate through the whole window, and check for each color of the pixel, then call appropriate logic function
     if (frameSide) {
-        ParallelFor(0, particleCount, 4, PhysUpdateParall);
+        for (int i = 0; i < particleCount; i++) {
+            PhysUpdate1(i);
+        }
     }
     else {
-        ParallelFor(0, particleCount, 4, PhysUpdateParallNeg);
+        for (int i = 0; i < particleCount; i++) {
+            PhysUpdate2(i);
+        }
+    }
+    frameSide = !frameSide;
+}
+void ParallelPhysUpdate()
+{
+    // Iterate through the whole window, and check for each color of the pixel, then call appropriate logic function
+    if (frameSide) {
+        ParallelFor(0, particleCount, 4, PhysUpdate1);
+    }
+    else {
+        ParallelFor(0, particleCount, 4, PhysUpdate2);
     }
     frameSide = !frameSide;
 }

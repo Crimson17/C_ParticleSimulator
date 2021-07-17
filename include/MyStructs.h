@@ -15,7 +15,6 @@ typedef struct RGBColor {
 typedef struct Particle {
     COLOR color;
     int updated;
-    double velocity;
 }PARTICLE;
 
 typedef struct Point2D {
@@ -25,8 +24,6 @@ typedef struct Point2D {
 
 // Global variables
 extern int globalRunning;
-extern double deltaTime;
-extern double gravity;
 extern int windowWidth;
 extern int windowHeight;
 extern int hideConsole;
