@@ -6,16 +6,27 @@
 #include <Windows.h>
 #include "MyFunctions.h"
 #include "MyStructs.h"
+#include "MyThreading.h"
 
 
 // Recolor all pixels to particles, RED and BLUE channels need to be switched because it's 24bit color
+void ParticlesToPixelsParallel(int i){
+    *(pixels + 3 * i) = (particles + i)->color.b;
+    *(pixels + 3 * i + 1) = (particles + i)->color.g;
+    *(pixels + 3 * i + 2) = (particles + i)->color.r;
+    (particles + i)->updated = 0;
+}
+
 void ParticlesToPixels() {
+    ParallelFor(0, particleCount, 4, ParticlesToPixelsParallel);
+    /*
     for (int i = 0; i < particleCount; i++) {
         *(pixels + 3 * i) = (particles + i)->color.b;
         *(pixels + 3 * i + 1) = (particles + i)->color.g;
         *(pixels + 3 * i + 2) = (particles + i)->color.r;
         (particles + i)->updated = 0;
     }
+    */
 }
 
 // Compares 2 colors

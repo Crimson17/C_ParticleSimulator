@@ -45,13 +45,11 @@ void Input(MSG message)
 void PhysUpdate()
 {
     int frameSide = 1;
-    POINT2D tempPoint = { 0 };
     // Iterate through the whole window, and check for each color of the pixel, then call appropriate logic function
     if (frameSide) {
         for (int y = 0; y < windowHeight; y++) {
             for (int x = 0; x < windowWidth; x++) {
-                tempPoint.x = x;
-                tempPoint.y = y;
+                POINT2D tempPoint = { x, y };
                 if(ColorCompare(ColorAtPoint(tempPoint), _MaterialSand)){
                     MaterialLogicSand(tempPoint);
                 }
@@ -68,8 +66,7 @@ void PhysUpdate()
     else {
         for (int y = 0; y < windowHeight; y++) {
             for (int x = windowWidth; x >= 0; x--) {
-                tempPoint.x = x;
-                tempPoint.y = y;
+                POINT2D tempPoint = { x, y };
                 if (ColorCompare(ColorAtPoint(tempPoint), _MaterialSand)) {
                     MaterialLogicSand(tempPoint);
                 }
