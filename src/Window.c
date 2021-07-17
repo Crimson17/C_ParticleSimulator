@@ -36,15 +36,15 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     srand((unsigned)time(NULL));
 
     // Define window class
-    char* CLASS_NAME = "Fps: ";
+    char windowName[11] = "Fps: ";
     WNDCLASS window_class = { 0 };
     window_class.lpfnWndProc = WindowProc; // Communicates with windows, when you click on "X" windows sends a WM_CLOSE message
     window_class.hInstance = hInstance;
-    window_class.lpszClassName = CLASS_NAME;
+    window_class.lpszClassName = windowName;
     RegisterClass(&window_class);
 
     // Create window and specify window properties
-    HWND window = CreateWindowEx(0, CLASS_NAME, 0, 0, (ScreenX - windowWidth) / 2, (ScreenY - windowHeight) / 2, windowWidth, windowHeight, 0, 0, hInstance, 0);
+    HWND window = CreateWindowEx(0, windowName, 0, 0, (ScreenX - windowWidth) / 2, (ScreenY - windowHeight) / 2, windowWidth, windowHeight, 0, 0, hInstance, 0);
 
     // Remove window title bar
     SetWindowLong(window, GWL_STYLE, 0);

@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <pthread.h>
+#include "MyFunctions.h"
+
 
 typedef struct StructForParallelFor {
     int start;

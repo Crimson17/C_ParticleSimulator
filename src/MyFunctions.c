@@ -6,7 +6,6 @@
 #include <Windows.h>
 #include "MyFunctions.h"
 #include "MyStructs.h"
-#include "MyThreading.h"
 
 
 // Recolor all pixels to particles, RED and BLUE channels need to be switched because it's 24bit color
