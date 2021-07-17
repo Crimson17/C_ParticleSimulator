@@ -36,13 +36,13 @@ void ParallelFor(int startInclusive, int endExclusive, int threadCount, void (*f
         }
         tempArgument->funcToRun = funcToRun;
         if (pthread_create(th + i, NULL, FuncForParallelFor, (void*)tempArgument)) {
-            perror("Coudln't creat thread\n");
+            perror("Couldn't create thread\n");
         }
     }
 
     for (int i = 0; i < threadCount; i++) {
         if (pthread_join(*(th + i), NULL)) {
-            perror("Coudln't join thread\n");
+            perror("Couldn't join thread\n");
         }
     }
 }

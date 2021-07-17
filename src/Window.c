@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <sys/time.h>
 #include <windows.h>
 #include <stdint.h>
 #include "MyFunctions.h"
@@ -36,7 +37,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     srand((unsigned)time(NULL));
 
     // Define window class
-    char windowName[11] = "Fps: ";
+    char* windowName = "Sand Simulation";
     WNDCLASS window_class = { 0 };
     window_class.lpfnWndProc = WindowProc; // Communicates with windows, when you click on "X" windows sends a WM_CLOSE message
     window_class.hInstance = hInstance;
@@ -74,7 +75,6 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 
     // Inital pixel colors
     FillSolid(backgroundColor);
-    //FillRand();
 
     // Keep window open
     MSG message;
@@ -111,6 +111,9 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
         if (wParam == 27) {
             globalRunning = 0;
         }
+        break;
+    case WM_CLOSE:
+        globalRunning = 0;
         break;
     default:
         result = DefWindowProc(window, message, wParam, lParam);

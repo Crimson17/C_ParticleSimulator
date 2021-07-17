@@ -1,3 +1,2 @@
 plans: 
-1. multithreading
-2. fps in the window name
+1. multithreading, almost done

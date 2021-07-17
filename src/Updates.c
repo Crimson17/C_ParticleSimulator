@@ -30,7 +30,7 @@ void Input(MSG message)
         solidMaterialExists = 1;
     }
     // Check for spacebar
-    else if (message.wParam == 32 && solidMaterialExists) {
+    else if (message.wParam == ' ' && solidMaterialExists) {
         for (int i = 0; i < particleCount; i++) {
             if (ColorCompare((particles + i)->color, _MaterialRockSolid)) {
                 (particles + i)->color = _MaterialRockParticle;
@@ -38,46 +38,50 @@ void Input(MSG message)
         }
         solidMaterialExists = 0;
     }
+    // Check for R
+    else if (message.wParam == 'r') {
+        for (int i = 0; i < particleCount; i++) {
+            (particles + i)->color = backgroundColor;
+            (particles + i)->updated = 0;
+            (particles + i)->velocity = 0.0;
+        }
+        solidMaterialExists = 0;
+    }
 }
-
 
 // Updates physics every frame update
 int frameSide = 1;
+void PhysUpdateParall(int i) {
+    if (frameSide) {
+        POINT2D tempPoint = { i % windowWidth, i / windowWidth };
+        if (ColorCompare(ColorAtPoint(tempPoint), _MaterialSand)) {
+            MaterialLogicSand(tempPoint);
+        }
+        else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialWater)) {
+            MaterialLogicWater(tempPoint);
+        }
+        else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialRockParticle)) {
+            MaterialLogicRockParticle(tempPoint);
+        }
+    }
+    else {
+        POINT2D tempPoint = { 0, i / windowWidth };
+        i = particleCount - 1 - i;
+        tempPoint.x = i % windowWidth;
+        if (ColorCompare(ColorAtPoint(tempPoint), _MaterialSand)) {
+            MaterialLogicSand(tempPoint);
+        }
+        else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialWater)) {
+            MaterialLogicWater(tempPoint);
+        }
+        else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialRockParticle)) {
+            MaterialLogicRockParticle(tempPoint);
+        }
+    }
+}
 void PhysUpdate()
 {
     // Iterate through the whole window, and check for each color of the pixel, then call appropriate logic function
-    if (frameSide) {
-        for (int y = 0; y < windowHeight; y++) {
-            for (int x = 0; x < windowWidth; x++) {
-                POINT2D tempPoint = { x, y };
-                if(ColorCompare(ColorAtPoint(tempPoint), _MaterialSand)){
-                    MaterialLogicSand(tempPoint);
-                }
-                else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialWater)) {
-                    MaterialLogicWater(tempPoint);
-                }
-                else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialRockParticle)) {
-                    MaterialLogicRockParticle(tempPoint);
-                }
-            }
-        }
-        frameSide = !frameSide;
-    }
-    else {
-        for (int y = 0; y < windowHeight; y++) {
-            for (int x = windowWidth-1; x >= 0; x--) {
-                POINT2D tempPoint = { x, y };
-                if (ColorCompare(ColorAtPoint(tempPoint), _MaterialSand)) {
-                    MaterialLogicSand(tempPoint);
-                }
-                else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialWater)) {
-                    MaterialLogicWater(tempPoint);
-                }
-                else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialRockParticle)) {
-                    MaterialLogicRockParticle(tempPoint);
-                }
-            }
-        }
-        frameSide = !frameSide;
-    }
+    ParallelFor(0, particleCount, 4, PhysUpdateParall);
+    frameSide = !frameSide;
 }
