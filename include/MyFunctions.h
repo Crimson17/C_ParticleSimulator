@@ -28,4 +28,7 @@ void PhysUpdate();
 // My threading functions
 void ParallelFor(int startInclusive, int endExclusive, int threadCount, void (*funcToRun)(int));
 
+// Time
+double RawTimeVal(struct timeval startTime, struct timeval endTime, int returnType);
+
 #endif

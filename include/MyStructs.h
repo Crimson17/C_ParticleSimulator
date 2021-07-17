@@ -25,6 +25,8 @@ typedef struct Point2D {
 
 // Global variables
 extern int globalRunning;
+extern double deltaTime;
+extern double gravity;
 extern int windowWidth;
 extern int windowHeight;
 extern int hideConsole;

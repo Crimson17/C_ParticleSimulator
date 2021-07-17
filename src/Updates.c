@@ -50,38 +50,41 @@ void Input(MSG message)
 }
 
 // Updates physics every frame update
-int frameSide = 1;
 void PhysUpdateParall(int i) {
-    if (frameSide) {
-        POINT2D tempPoint = { i % windowWidth, i / windowWidth };
-        if (ColorCompare(ColorAtPoint(tempPoint), _MaterialSand)) {
-            MaterialLogicSand(tempPoint);
-        }
-        else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialWater)) {
-            MaterialLogicWater(tempPoint);
-        }
-        else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialRockParticle)) {
-            MaterialLogicRockParticle(tempPoint);
-        }
+    POINT2D tempPoint = { i % windowWidth, i / windowWidth };
+    if (ColorCompare(ColorAtPoint(tempPoint), _MaterialSand)) {
+        MaterialLogicSand(tempPoint);
     }
-    else {
-        POINT2D tempPoint = { 0, i / windowWidth };
-        i = particleCount - 1 - i;
-        tempPoint.x = i % windowWidth;
-        if (ColorCompare(ColorAtPoint(tempPoint), _MaterialSand)) {
-            MaterialLogicSand(tempPoint);
-        }
-        else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialWater)) {
-            MaterialLogicWater(tempPoint);
-        }
-        else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialRockParticle)) {
-            MaterialLogicRockParticle(tempPoint);
-        }
+    else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialWater)) {
+        MaterialLogicWater(tempPoint);
+    }
+    else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialRockParticle)) {
+        MaterialLogicRockParticle(tempPoint);
     }
 }
+void PhysUpdateParallNeg(int i) {
+    POINT2D tempPoint = { 0, i / windowWidth };
+    i = particleCount - 1 - i;
+    tempPoint.x = i % windowWidth;
+    if (ColorCompare(ColorAtPoint(tempPoint), _MaterialSand)) {
+        MaterialLogicSand(tempPoint);
+    }
+    else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialWater)) {
+        MaterialLogicWater(tempPoint);
+    }
+    else if (ColorCompare(ColorAtPoint(tempPoint), _MaterialRockParticle)) {
+        MaterialLogicRockParticle(tempPoint);
+    }
+}
+int frameSide = 1;
 void PhysUpdate()
 {
     // Iterate through the whole window, and check for each color of the pixel, then call appropriate logic function
-    ParallelFor(0, particleCount, 4, PhysUpdateParall);
+    if (frameSide) {
+        ParallelFor(0, particleCount, 4, PhysUpdateParall);
+    }
+    else {
+        ParallelFor(0, particleCount, 4, PhysUpdateParallNeg);
+    }
     frameSide = !frameSide;
 }

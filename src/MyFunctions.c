@@ -99,3 +99,22 @@ int PointInWindow(POINT2D point)
 float PointDistance(POINT2D point1, POINT2D point2) {
     return (sqrt(pow((point2.x - point1.x), 2) + pow((point2.y - point1.y), 2)));
 }
+
+// Returns decimal time
+double RawTimeVal(struct timeval startTime, struct timeval endTime, int returnType) {
+    long differenceInSeconds = endTime.tv_sec - startTime.tv_sec;
+    long differenceInMicroseconds = endTime.tv_usec - startTime.tv_usec;
+    // Time in seconds
+    if (returnType == 2) {
+        return (differenceInSeconds + (differenceInMicroseconds / 1000000.0));
+    }
+    // Time in miliseconds
+    if (returnType == 1) {
+        return ((differenceInSeconds * 1000.0) + (differenceInMicroseconds / 1000.0));
+    }
+    // Time in microseconds
+    if (returnType == 0) {
+        return ((differenceInSeconds * 1000000.0) + differenceInMicroseconds);
+    }
+    return 0.0;
+}

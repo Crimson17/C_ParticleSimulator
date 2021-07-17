@@ -14,11 +14,15 @@ int windowHeight = 400;
 // Default background color
 COLOR backgroundColor = { 11, 22, 33 };
 // Hides the console
-int hideConsole = 1;
+int hideConsole = 0;
 // Size of the drawing brush
 int brushSize = 10;
 // For game loop
 int globalRunning = 1;
+// Time between frames
+double deltaTime = 0.0;
+// Gravity
+double gravity = 9.81;
 
 int particleCount;
 BYTE* pixels;
@@ -78,7 +82,9 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 
     // Keep window open
     MSG message;
+    struct timeval frameStartTime, frameEndTime;
     while (globalRunning) {
+        gettimeofday(&frameStartTime, NULL);
         // Message = Pressed Keys (Something like a key listener)
         while (PeekMessage(&message, window, 0, 0, PM_REMOVE)) {
             // Translate key code to real char
@@ -94,6 +100,10 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         ParticlesToPixels();
         // Render bits from the memmory to screen
         StretchDIBits(hdc, 0, 0, windowWidth, windowHeight, 0, 0, windowWidth, windowHeight, pixels, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
+        // Delta time calculations
+        gettimeofday(&frameEndTime, NULL);
+        deltaTime = RawTimeVal(frameStartTime, frameEndTime, 2);
+        printf("%lf\n", deltaTime);
     }
 
     // Free memory
@@ -111,9 +121,6 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
         if (wParam == 27) {
             globalRunning = 0;
         }
-        break;
-    case WM_CLOSE:
-        globalRunning = 0;
         break;
     default:
         result = DefWindowProc(window, message, wParam, lParam);

@@ -12,30 +12,33 @@ void MaterialLogicSand(POINT2D location)
     int y = location.y;
 
     // First, check one down
-    if (location.y > 0 && (ColorCompare(ColorAtPoint((POINT2D) { x, y - 1 }), backgroundColor) || ColorCompare(ColorAtPoint((POINT2D) { x, y - 1 }), _MaterialWater))) {
+    if (y > 0 && (ColorCompare(ColorAtPoint((POINT2D) { x, y - 1 }), backgroundColor) || ColorCompare(ColorAtPoint((POINT2D) { x, y - 1 }), _MaterialWater))) {
         COLOR tempMaterial = ColorAtPoint((POINT2D) { x, y - 1 });
         DrawPoint((POINT2D) { x, y - 1 }, _MaterialSand);
-        DrawPoint((POINT2D) { x, y }, tempMaterial);
+        DrawPoint(location, tempMaterial);
     }
     // The bottom-right
     else if (y > 0 && x < windowWidth - 1 && (ColorCompare(ColorAtPoint((POINT2D) { x + 1, y - 1 }), backgroundColor) || ColorCompare(ColorAtPoint((POINT2D) { x + 1, y - 1 }), _MaterialWater))) {
         COLOR tempMaterial = ColorAtPoint((POINT2D) { x + 1, y - 1 });
         DrawPoint((POINT2D) { x + 1, y - 1 }, _MaterialSand);
-        DrawPoint((POINT2D) { x, y }, tempMaterial);
+        DrawPoint(location, tempMaterial);
     }
     // The bottom-left
     else if (y > 0 && x > 0 && (ColorCompare(ColorAtPoint((POINT2D) { x - 1, y - 1 }), backgroundColor) || ColorCompare(ColorAtPoint((POINT2D) { x - 1, y - 1 }), _MaterialWater))) {
         COLOR tempMaterial = ColorAtPoint((POINT2D) { x - 1, y - 1 });
         DrawPoint((POINT2D) { x - 1, y - 1 }, _MaterialSand);
-        DrawPoint((POINT2D) { x, y }, tempMaterial);
+        DrawPoint(location, tempMaterial);
+    }
+    else {
+        (particles + (y * windowWidth) + x)->velocity = 0.0;
     }
 }
 
 // Particle logic for water
 void MaterialLogicWater(POINT2D location)
 {
-    float x = location.x;
-    float y = location.y;
+    int x = location.x;
+    int y = location.y;
 
     // First, check one down
     if (y > 0 && ColorCompare(ColorAtPoint((POINT2D) { x, y - 1 }), backgroundColor)) {
@@ -62,6 +65,9 @@ void MaterialLogicWater(POINT2D location)
         DrawPoint((POINT2D) { x - 1, y }, _MaterialWater);
         DrawPoint(location, backgroundColor);
     }
+    else {
+        (particles + (y * windowWidth) + x)->velocity = 0.0;
+    }
 }
 
 // Particle logic for rock
@@ -74,18 +80,21 @@ void MaterialLogicRockParticle(POINT2D location)
     if (y > 0 && (ColorCompare(ColorAtPoint((POINT2D) { x, y - 1 }), backgroundColor) || ColorCompare(ColorAtPoint((POINT2D) { x, y - 1 }), _MaterialWater) || ColorCompare(ColorAtPoint((POINT2D) { x, y - 1 }), _MaterialSand))) {
         COLOR tempMaterial = ColorAtPoint((POINT2D) { x, y - 1 });
         DrawPoint((POINT2D) { x, y - 1 }, _MaterialRockParticle);
-        DrawPoint((POINT2D) { x, y }, tempMaterial);
+        DrawPoint(location, tempMaterial);
     }
     // The bottom-right
     else if (y > 0 && x < windowWidth - 1 && (ColorCompare(ColorAtPoint((POINT2D) { x + 1, y - 1 }), backgroundColor) || ColorCompare(ColorAtPoint((POINT2D) { x + 1, y - 1 }), _MaterialWater) || ColorCompare(ColorAtPoint((POINT2D) { x + 1, y - 1 }), _MaterialSand))) {
         COLOR tempMaterial = ColorAtPoint((POINT2D) { x + 1, y - 1 });
         DrawPoint((POINT2D) { x + 1, y - 1 }, _MaterialRockParticle);
-        DrawPoint((POINT2D) { x, y }, tempMaterial);
+        DrawPoint(location, tempMaterial);
     }
     // The bottom-left
     else if (y > 0 && x > 0 && (ColorCompare(ColorAtPoint((POINT2D) { x - 1, y - 1 }), backgroundColor) || ColorCompare(ColorAtPoint((POINT2D) { x - 1, y - 1 }), _MaterialWater) || ColorCompare(ColorAtPoint((POINT2D) { x - 1, y - 1 }), _MaterialSand))) {
         COLOR tempMaterial = ColorAtPoint((POINT2D) { x - 1, y - 1 });
         DrawPoint((POINT2D) { x - 1, y - 1 }, _MaterialRockParticle);
-        DrawPoint((POINT2D) { x, y }, tempMaterial);
+        DrawPoint(location, tempMaterial);
+    }
+    else {
+        (particles + (y * windowWidth) + x)->velocity = 0.0;
     }
 }
