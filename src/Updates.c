@@ -10,9 +10,9 @@
 #include "MyFunctions.h"
 
 
+// Handles window input
 int solidMaterialExists = 0;
 int counter = 0;
-// Gets called ever frame update
 void Input(MSG message)
 {
     // Check for left mouse button
@@ -51,7 +51,7 @@ void Input(MSG message)
     }
 }
 
-// Updates physics every frame update
+// Update particle physics
 int frameSide = 1;
 void PhysUpdate1(int i) {
     POINT2D tempPoint = { i % windowWidth, i / windowWidth };
@@ -79,7 +79,6 @@ void PhysUpdate2(int i) {
 }
 void PhysUpdate()
 {
-    // Iterate through the whole window, and check for each color of the pixel, then call appropriate logic function
     if (frameSide) {
         for (int i = 0; i < particleCount; i++) {
             PhysUpdate1(i);
@@ -94,7 +93,6 @@ void PhysUpdate()
 }
 void ParallelPhysUpdate()
 {
-    // Iterate through the whole window, and check for each color of the pixel, then call appropriate logic function
     if (frameSide) {
         ParallelFor(0, particleCount, 4, PhysUpdate1);
     }
@@ -115,6 +113,7 @@ void ParticlesToPixels() {
     ParallelFor(0, particleCount, 4, ParticlesToPixelsParallel);
 }
 
+// Draws a red cursor circle
 POINT2D mouseCoords;
 void MouseCircle(MSG message) {
     POINT2D tempPoint = { LOWORD(message.lParam), abs(HIWORD(message.lParam) - windowHeight) };
