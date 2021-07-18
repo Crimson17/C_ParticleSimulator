@@ -51,11 +51,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     RegisterClass(&window_class);
 
     // Create window and specify window properties
-    HWND window = CreateWindowEx(0, windowName, 0, 0, (ScreenX - windowWidth) / 2, (ScreenY - windowHeight) / 2, windowWidth, windowHeight, 0, 0, hInstance, 0);
-
-    // Remove window title bar
-    SetWindowLong(window, GWL_STYLE, 0);
-    ShowWindow(window, SW_SHOW);
+    HWND gameWindow = CreateWindowEx(0, windowName, 0, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_VISIBLE, (ScreenX - windowWidth) / 2, (ScreenY - windowHeight) / 2, windowWidth, windowHeight + 29, 0, 0, hInstance, 0);
 
     // Allocate memory
     particleCount = windowWidth * windowHeight;
@@ -77,7 +73,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     bitmap_info.bmiHeader.biCompression = BI_RGB;       // Compression type, RI_RGB = no compression
 
     // Access window, so it can be rendered to
-    HDC hdc = GetDC(window);
+    HDC hdc = GetDC(gameWindow);
 
     // Inital pixel colors
     FillSolid(backgroundColor);
@@ -85,10 +81,12 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     // Keep window open
     MSG message;
     struct timeval frameStartTime, frameEndTime;
+    char fpsDisplay[20] = "FPS: ";
+    int fpsCounter = 0;
     while (globalRunning) {
         gettimeofday(&frameStartTime, NULL);
         // Message = Pressed Keys (Something like a key listener)
-        while (PeekMessage(&message, window, 0, 0, PM_REMOVE)) {
+        while (PeekMessage(&message, gameWindow, 0, 0, PM_REMOVE)) {
             // Translate key code to real char
             TranslateMessage(&message);
             // Send message to MSG message
@@ -97,7 +95,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         // Handle the input
         Input(message);
         // Update the particle physics
-        PhysUpdate();
+        ParallelPhysUpdate();
         // Write particles to pixel memory
         ParticlesToPixels();
         // Render circle around the mouse
@@ -107,6 +105,12 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         // Delta time calculations
         gettimeofday(&frameEndTime, NULL);
         deltaTime = RawTimeVal(frameStartTime, frameEndTime, 2);
+        if (fpsCounter == 30) {
+            sprintf(fpsDisplay, "FPS: %d", (int)(1.0 / deltaTime));
+            SetWindowTextA(gameWindow, fpsDisplay);
+            fpsCounter = 0;
+        }
+        fpsCounter++;
     }
 
     // Free memory
