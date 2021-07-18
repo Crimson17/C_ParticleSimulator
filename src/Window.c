@@ -14,8 +14,6 @@ int windowWidth = 400;
 int windowHeight = 400;
 // Default background color
 COLOR backgroundColor = { 11, 22, 33 };
-// Hides the console
-int hideConsole = 1;
 // Size of the drawing brush
 int brushSize = 10;
 // For game loop
@@ -36,9 +34,7 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
 {
     // Setup
-    if (hideConsole) {
-        FreeConsole();
-    }
+    FreeConsole();
     ShowCursor(0);
     srand((unsigned)time(NULL));
 
