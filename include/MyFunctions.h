@@ -26,6 +26,7 @@ void WindowProperties();
 void Input(MSG message);
 void PhysUpdate();
 void ParallelPhysUpdate();
+void MouseCircle(MSG message);
 
 // My threading functions
 void ParallelFor(int startInclusive, int endExclusive, int threadCount, void (*funcToRun)(int));

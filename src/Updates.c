@@ -1,6 +1,8 @@
+#define _USE_MATH_DEFINES
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 #include <windows.h>
 #include <stdint.h>
 #include "MyStructs.h"
@@ -100,4 +102,21 @@ void ParallelPhysUpdate()
         ParallelFor(0, particleCount, 4, PhysUpdate2);
     }
     frameSide = !frameSide;
+}
+
+void MouseCircle(MSG message) {
+    POINT2D mouseCoords = { LOWORD(message.lParam), abs(HIWORD(message.lParam) - windowHeight) };
+    POINT2D secondPoint = { mouseCoords.x + brushSize, mouseCoords.y };
+    float radius = PointDistance(mouseCoords, secondPoint);
+    float degreeStep = (360.0 / ((2 * radius * M_PI) * 10.0));
+    // Loop for dot travel
+    for (float degrees = 0; degrees < 360.0; degrees += degreeStep) {
+        POINT2D travelDot = { mouseCoords.x + (radius * sin(degrees)), mouseCoords.y + (radius * cos(degrees)) };
+        if (PointInWindow(travelDot)) {
+            int i = travelDot.x + (travelDot.y * windowWidth);
+            *(pixels + 3 * i) = _ColorRed.b;
+            *(pixels + 3 * i + 1) = _ColorRed.g;
+            *(pixels + 3 * i + 2) = _ColorRed.r;
+        }
+    }
 }

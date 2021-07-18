@@ -23,6 +23,8 @@ void SwitchParticles(POINT2D firstParticle, POINT2D secondParticle) {
     PARTICLE tempParticle = *(particles + (firstParticle.y * windowWidth) + firstParticle.x);
     *(particles + (firstParticle.y * windowWidth) + firstParticle.x) = *(particles + (secondParticle.y * windowWidth) + secondParticle.x);
     *(particles + (secondParticle.y * windowWidth) + secondParticle.x) = tempParticle;
+
+    (particles + (secondParticle.y * windowWidth) + secondParticle.x)->updated = 1;
 }
 
 // Compares 2 colors
@@ -56,8 +58,7 @@ void DrawPoint(POINT2D point, COLOR color)
 void DrawCircle(POINT2D centerPoint, POINT2D outerPoint, COLOR color)
 {
     float radius = PointDistance(centerPoint, outerPoint);
-    float circleCirc = 2 * radius * M_PI;
-    float degreeStep = (360.0 / (circleCirc * 10.0));
+    float degreeStep = (360.0 / ((2 * radius * M_PI) * 10.0));
     // Loop for dot travel
     for (float degrees = 0; degrees < 360.0; degrees += degreeStep) {
         POINT2D travelDot = { centerPoint.x + (radius * sin(degrees)), centerPoint.y + (radius * cos(degrees)) };

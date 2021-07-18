@@ -39,6 +39,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     if (hideConsole) {
         FreeConsole();
     }
+    ShowCursor(0);
     srand((unsigned)time(NULL));
 
     // Define window class
@@ -96,9 +97,11 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         // Handle the input
         Input(message);
         // Update the particle physics
-        ParallelPhysUpdate();
+        PhysUpdate();
         // Write particles to pixel memory
         ParticlesToPixels();
+        // Render circle around the mouse
+        MouseCircle(message);
         // Render bits from the memmory to screen
         StretchDIBits(hdc, 0, 0, windowWidth, windowHeight, 0, 0, windowWidth, windowHeight, pixels, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
         // Delta time calculations
