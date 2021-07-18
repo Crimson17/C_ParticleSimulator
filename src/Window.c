@@ -83,7 +83,9 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 
     // Keep window open
     MSG message;
+    struct timeval frameStartTime, frameEndTime;
     while (globalRunning) {
+        gettimeofday(&frameStartTime, NULL);
         // Message = Pressed Keys (Something like a key listener)
         while (PeekMessage(&message, window, 0, 0, PM_REMOVE)) {
             // Translate key code to real char
@@ -94,11 +96,14 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         // Handle the input
         Input(message);
         // Update the particle physics
-        PhysUpdate();
+        ParallelPhysUpdate();
         // Write particles to pixel memory
         ParticlesToPixels();
         // Render bits from the memmory to screen
         StretchDIBits(hdc, 0, 0, windowWidth, windowHeight, 0, 0, windowWidth, windowHeight, pixels, &bitmap_info, DIB_RGB_COLORS, SRCCOPY);
+        // Delta time calculations
+        gettimeofday(&frameEndTime, NULL);
+        deltaTime = RawTimeVal(frameStartTime, frameEndTime, 2);
     }
 
     // Free memory

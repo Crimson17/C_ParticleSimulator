@@ -43,6 +43,7 @@ void Input(MSG message)
         for (int i = 0; i < particleCount; i++) {
             (particles + i)->color = backgroundColor;
             (particles + i)->updated = 0;
+            (particles + i)->velocity = 0.0;
         }
         solidMaterialExists = 0;
     }
@@ -63,9 +64,7 @@ void PhysUpdate1(int i) {
     }
 }
 void PhysUpdate2(int i) {
-    POINT2D tempPoint = { 0, i / windowWidth };
-    i = particleCount - 1 - i;
-    tempPoint.x = i % windowWidth;
+    POINT2D tempPoint = { (particleCount - 1 - i) % windowWidth, i / windowWidth };
     if (ColorCompare(ColorAtPoint(tempPoint), _MaterialSand)) {
         MaterialLogicSand(tempPoint);
     }

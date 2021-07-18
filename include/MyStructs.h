@@ -5,6 +5,7 @@
 
 typedef unsigned char BYTE;
 
+// RGB color
 typedef struct RGBColor {
     BYTE r;
     BYTE g;
@@ -15,8 +16,10 @@ typedef struct RGBColor {
 typedef struct Particle {
     COLOR color;
     int updated;
+    double velocity;
 }PARTICLE;
 
+// Point in 2D space
 typedef struct Point2D {
     int x;
     int y;
@@ -24,6 +27,8 @@ typedef struct Point2D {
 
 // Global variables
 extern int globalRunning;
+extern double deltaTime;
+extern double gravity;
 extern int windowWidth;
 extern int windowHeight;
 extern int hideConsole;
