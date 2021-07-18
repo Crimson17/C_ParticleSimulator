@@ -104,12 +104,18 @@ void ParallelPhysUpdate()
     frameSide = !frameSide;
 }
 
+POINT2D mouseCoords;
+POINT2D secondPoint;
 void MouseCircle(MSG message) {
-    POINT2D mouseCoords = { LOWORD(message.lParam), abs(HIWORD(message.lParam) - windowHeight) };
-    POINT2D secondPoint = { mouseCoords.x + brushSize, mouseCoords.y };
+    POINT2D tempPoint = { LOWORD(message.lParam), abs(HIWORD(message.lParam) - windowHeight) };
+    if (PointInWindow(tempPoint)) {
+        mouseCoords = tempPoint;
+        secondPoint.y = mouseCoords.y;
+    }
+    secondPoint.x = mouseCoords.x + brushSize;
+
     float radius = PointDistance(mouseCoords, secondPoint);
     float degreeStep = (360.0 / ((2 * radius * M_PI) * 10.0));
-    // Loop for dot travel
     for (float degrees = 0; degrees < 360.0; degrees += degreeStep) {
         POINT2D travelDot = { mouseCoords.x + (radius * sin(degrees)), mouseCoords.y + (radius * cos(degrees)) };
         if (PointInWindow(travelDot)) {

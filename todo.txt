@@ -1,3 +1,5 @@
 1. multithreading, bugs at transitions between threads
 2. better circle drawing logic
 3. fix water updates
+4. new gas material
+

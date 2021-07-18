@@ -126,6 +126,16 @@ LRESULT CALLBACK WindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lPa
             globalRunning = 0;
         }
         break;
+    case WM_MOUSEWHEEL:
+        if (GET_WHEEL_DELTA_WPARAM(wParam) < 0) {
+            brushSize += 5;
+        }
+        else {
+            if (brushSize > 5) {
+                brushSize -= 5;
+            }
+        }
+        break;
     case WM_CLOSE:
         globalRunning = 0;
         break;
