@@ -26,6 +26,8 @@ typedef struct Point2D {
 }POINT2D;
 
 // Global variables
+extern BYTE ANDmaskIcon[128];
+extern BYTE XORmaskIcon[128];
 extern int globalRunning;
 extern double deltaTime;
 extern double gravity;

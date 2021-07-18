@@ -44,6 +44,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     window_class.lpfnWndProc = WindowProc; // Communicates with windows, when you click on "X" windows sends a WM_CLOSE message
     window_class.hInstance = hInstance;
     window_class.lpszClassName = windowName;
+    window_class.hIcon = CreateIcon(hInstance, 32, 32, 1, 1, ANDmaskIcon, XORmaskIcon);
     RegisterClass(&window_class);
 
     // Create window and specify window properties
