@@ -19,6 +19,7 @@ void ParticlesToPixels() {
     ParallelFor(0, particleCount, 4, ParticlesToPixelsParallel);
 }
 
+// Switches places of 2 given particles
 void SwitchParticles(POINT2D firstParticle, POINT2D secondParticle) {
     PARTICLE tempParticle = *(particles + (firstParticle.y * windowWidth) + firstParticle.x);
     *(particles + (firstParticle.y * windowWidth) + firstParticle.x) = *(particles + (secondParticle.y * windowWidth) + secondParticle.x);

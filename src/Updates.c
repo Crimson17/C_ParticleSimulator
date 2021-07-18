@@ -108,7 +108,7 @@ POINT2D mouseCoords;
 POINT2D secondPoint;
 void MouseCircle(MSG message) {
     POINT2D tempPoint = { LOWORD(message.lParam), abs(HIWORD(message.lParam) - windowHeight) };
-    if (PointInWindow(tempPoint)) {
+    if (PointInWindow(tempPoint) && message.message != WM_CHAR) {
         mouseCoords = tempPoint;
         secondPoint.y = mouseCoords.y;
     }
