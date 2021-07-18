@@ -56,22 +56,18 @@ void DrawPoint(POINT2D point, COLOR color)
 }
 
 // Draws a custom colored circle on the window with the given points
-void DrawCircle(POINT2D centerPoint, POINT2D outerPoint, COLOR color)
+void DrawCircle(POINT2D centerPoint, double radius, COLOR color)
 {
-    float radius = PointDistance(centerPoint, outerPoint);
-    float degreeStep = (360.0 / ((2 * radius * M_PI) * 10.0));
-    // Loop for dot travel
-    for (float degrees = 0; degrees < 360.0; degrees += degreeStep) {
-        POINT2D travelDot = { centerPoint.x + (radius * sin(degrees)), centerPoint.y + (radius * cos(degrees)) };
-        DrawPoint(travelDot, color);
+    double degreeStep = (360.0 / ((2 * radius * M_PI) * 10.0));
+    for (double degrees = 0.0; degrees < 360.0; degrees += degreeStep) {
+        DrawPoint((POINT2D) { centerPoint.x + (radius * sin(degrees)), centerPoint.y + (radius * cos(degrees)) }, color);
     }
 }
 
 // Draws a custom colored big dot on the given point
 void Brush(POINT2D centerPoint, int brushSize, COLOR color) {
-    for (int i = 0; i < brushSize; i++) {
-        POINT2D tempPoint = { centerPoint.x + i + 1, centerPoint.y };
-        DrawCircle(centerPoint, tempPoint, color);
+    for (int i = 1; i <= brushSize; i++) {
+        DrawCircle(centerPoint, i, color);
     }
 }
 

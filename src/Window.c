@@ -10,8 +10,8 @@
 
 
 // Screen size
-int windowWidth = 400;
-int windowHeight = 400;
+int windowWidth = 500;
+int windowHeight = 500;
 // Default background color
 COLOR backgroundColor = { 11, 22, 33 };
 // Size of the drawing brush
@@ -78,7 +78,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     // Keep window open
     MSG message;
     struct timeval frameStartTime, frameEndTime;
-    char fpsDisplay[20] = "FPS: ";
+    char fpsDisplay[50] = "FPS: ";
     int fpsCounter = 0;
     while (globalRunning) {
         gettimeofday(&frameStartTime, NULL);
@@ -103,7 +103,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         gettimeofday(&frameEndTime, NULL);
         deltaTime = RawTimeVal(frameStartTime, frameEndTime, 2);
         if (fpsCounter == 30) {
-            sprintf(fpsDisplay, "FPS: %d", (int)(1.0 / deltaTime));
+            sprintf(fpsDisplay, "FPS: %d    Brush size: %d", (int)(1.0 / deltaTime), brushSize);
             SetWindowTextA(gameWindow, fpsDisplay);
             fpsCounter = 0;
         }

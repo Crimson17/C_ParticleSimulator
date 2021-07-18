@@ -7,7 +7,7 @@
 // Particle functions
 void Brush(POINT2D centerPoint, int brushSize, COLOR color);
 void DrawPoint(POINT2D point, COLOR color);
-void DrawCircle(POINT2D centerPoint, POINT2D outerPoint, COLOR color);
+void DrawCircle(POINT2D centerPoint, double radius, COLOR color);
 void ParticlesToPixels();
 void SwitchParticles(POINT2D firstParticle, POINT2D secondParticle);
 
