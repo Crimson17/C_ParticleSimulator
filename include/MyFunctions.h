@@ -8,7 +8,6 @@
 void Brush(POINT2D centerPoint, int brushSize, COLOR color);
 void DrawPoint(POINT2D point, COLOR color);
 void DrawCircle(POINT2D centerPoint, double radius, COLOR color);
-void ParticlesToPixels();
 void SwitchParticles(POINT2D firstParticle, POINT2D secondParticle);
 
 // Pixel/Color functions
@@ -21,11 +20,11 @@ void FillSolid(COLOR color);
 int PointInWindow(POINT2D point);
 float PointDistance(POINT2D point1, POINT2D point2);
 
-// Updates
-void WindowProperties();
+// Functions that get called in the game loop
 void Input(MSG message);
 void PhysUpdate();
 void ParallelPhysUpdate();
+void ParticlesToPixels();
 void MouseCircle(MSG message);
 
 // My threading functions

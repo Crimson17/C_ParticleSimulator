@@ -104,6 +104,17 @@ void ParallelPhysUpdate()
     frameSide = !frameSide;
 }
 
+// Recolor all pixels to particles, RED and BLUE channels need to be switched because it's 24bit color
+void ParticlesToPixelsParallel(int i) {
+    *(pixels + 3 * i) = (particles + i)->color.b;
+    *(pixels + 3 * i + 1) = (particles + i)->color.g;
+    *(pixels + 3 * i + 2) = (particles + i)->color.r;
+    (particles + i)->updated = 0;
+}
+void ParticlesToPixels() {
+    ParallelFor(0, particleCount, 4, ParticlesToPixelsParallel);
+}
+
 POINT2D mouseCoords;
 void MouseCircle(MSG message) {
     POINT2D tempPoint = { LOWORD(message.lParam), abs(HIWORD(message.lParam) - windowHeight) };
