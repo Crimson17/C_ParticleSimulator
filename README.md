@@ -6,3 +6,4 @@ Commands:<br />
 &nbsp;-**Right Mouse Button** -> ***Spawns Water***<br />
 &nbsp;-**Middle Mouse Button** -> ***Spawns Solid Rock***<br />
 &nbsp;-**Spacebar** -> ***Turns All Solid Rocks Into Gravel***<br />
+&nbsp;-**R** -> ***Removes Everything***<br />
