@@ -92,7 +92,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         // Handle the input
         Input(message);
         // Update the particle physics
-        ParallelPhysUpdate();
+        PhysUpdate();
         // Write particles to pixel memory
         ParticlesToPixels();
         // Render circle around the mouse
@@ -103,7 +103,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         gettimeofday(&frameEndTime, NULL);
         deltaTime = RawTimeVal(frameStartTime, frameEndTime, 2);
         if (fpsCounter == 30) {
-            sprintf(fpsDisplay, "FPS: %d    Brush size: %d", (int)(1.0 / deltaTime), brushSize);
+            sprintf(fpsDisplay, "FPS: %lld    Brush size: %d", (long long)(1.0 / deltaTime), brushSize);
             SetWindowTextA(gameWindow, fpsDisplay);
             fpsCounter = 0;
         }

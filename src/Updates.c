@@ -45,7 +45,7 @@ void Input(MSG message)
         for (int i = 0; i < particleCount; i++) {
             (particles + i)->color = backgroundColor;
             (particles + i)->updated = 0;
-            (particles + i)->velocity = 0.0;
+            //(particles + i)->velocity = 0.0;
         }
         solidMaterialExists = 0;
     }

@@ -1,4 +1,2 @@
 1. multithreading, bugs at transitions between threads
-3. fix water updates
-4. maybe new gas material
-
+2. new gas particle
