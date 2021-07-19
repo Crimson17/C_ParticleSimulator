@@ -44,7 +44,7 @@ void Input(MSG message)
     else if (message.wParam == 'r') {
         for (int i = 0; i < particleCount; i++) {
             (particles + i)->color = backgroundColor;
-            (particles + i)->updated = 0;
+            //(particles + i)->updated = 0;
             //(particles + i)->velocity = 0.0;
         }
         solidMaterialExists = 0;
@@ -107,7 +107,7 @@ void ParticlesToPixelsParallel(int i) {
     *(pixels + 3 * i) = (particles + i)->color.b;
     *(pixels + 3 * i + 1) = (particles + i)->color.g;
     *(pixels + 3 * i + 2) = (particles + i)->color.r;
-    (particles + i)->updated = 0;
+    //(particles + i)->updated = 0;
 }
 void ParticlesToPixels() {
     ParallelFor(0, particleCount, 4, ParticlesToPixelsParallel);

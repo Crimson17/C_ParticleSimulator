@@ -13,7 +13,7 @@ void SwitchParticles(POINT2D firstParticle, POINT2D secondParticle) {
     PARTICLE tempParticle = *(particles + (firstParticle.y * windowWidth) + firstParticle.x);
     *(particles + (firstParticle.y * windowWidth) + firstParticle.x) = *(particles + (secondParticle.y * windowWidth) + secondParticle.x);
     *(particles + (secondParticle.y * windowWidth) + secondParticle.x) = tempParticle;
-    (particles + (secondParticle.y * windowWidth) + secondParticle.x)->updated = 1;
+    //(particles + (secondParticle.y * windowWidth) + secondParticle.x)->updated = 1;
 }
 
 // Compares 2 colors

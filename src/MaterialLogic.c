@@ -10,7 +10,7 @@
 void MaterialLogicSand(POINT2D location) {
     int x = location.x;
     int y = location.y;
-    if (!(particles + (y * windowWidth) + x)->updated) {
+    //if (!(particles + (y * windowWidth) + x)->updated) {
         // First, check one down
         if (y > 0 && (ColorCompare(ColorAtPoint((POINT2D) { x, y - 1 }), backgroundColor) || ColorCompare(ColorAtPoint((POINT2D) { x, y - 1 }), _MaterialWater))) {
             SwitchParticles((POINT2D) { x, y }, (POINT2D) { x, y - 1 });
@@ -23,7 +23,7 @@ void MaterialLogicSand(POINT2D location) {
         else if (y > 0 && x > 0 && (ColorCompare(ColorAtPoint((POINT2D) { x - 1, y - 1 }), backgroundColor) || ColorCompare(ColorAtPoint((POINT2D) { x - 1, y - 1 }), _MaterialWater))) {
             SwitchParticles((POINT2D) { x, y }, (POINT2D) { x - 1, y - 1 });
         }
-    }
+    //}
 }
 
 // Particle logic for water
@@ -59,7 +59,7 @@ void MaterialLogicWater(POINT2D location) {
 void MaterialLogicRockParticle(POINT2D location) {
     int x = location.x;
     int y = location.y;
-    if (!(particles + (y * windowWidth) + x)->updated) {
+    //if (!(particles + (y * windowWidth) + x)->updated) {
         // First, check one down
         if (y > 0 && (ColorCompare(ColorAtPoint((POINT2D) { x, y - 1 }), backgroundColor) || ColorCompare(ColorAtPoint((POINT2D) { x, y - 1 }), _MaterialWater) || ColorCompare(ColorAtPoint((POINT2D) { x, y - 1 }), _MaterialSand))) {
             SwitchParticles((POINT2D) { x, y }, (POINT2D) { x, y - 1 });
@@ -72,5 +72,5 @@ void MaterialLogicRockParticle(POINT2D location) {
         else if (y > 0 && x > 0 && (ColorCompare(ColorAtPoint((POINT2D) { x - 1, y - 1 }), backgroundColor) || ColorCompare(ColorAtPoint((POINT2D) { x - 1, y - 1 }), _MaterialWater) || ColorCompare(ColorAtPoint((POINT2D) { x - 1, y - 1 }), _MaterialSand))) {
             SwitchParticles((POINT2D) { x, y }, (POINT2D) { x - 1, y - 1 });
         }
-    }
+    //}
 }

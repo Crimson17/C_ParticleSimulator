@@ -1,2 +1,1 @@
 1. multithreading, bugs at transitions between threads
-2. new gas particle

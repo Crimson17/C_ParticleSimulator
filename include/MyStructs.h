@@ -15,7 +15,7 @@ typedef struct RGBColor {
 // Particle
 typedef struct Particle {
     COLOR color;
-    int updated;
+    //int updated;
     //double velocity;
 }PARTICLE;
 
