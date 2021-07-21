@@ -109,7 +109,7 @@ void ParticlesToPixelsParallel(int i) {
     *(pixels + 3 * i + 2) = (particles + i)->color.r;
     //(particles + i)->updated = 0;
 }
-void ParticlesToPixels() {
+void ParticlesToPixels() { 
     ParallelFor(0, particleCount, 4, ParticlesToPixelsParallel);
 }
 

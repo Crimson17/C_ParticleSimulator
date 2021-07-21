@@ -92,7 +92,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
         // Handle the input
         Input(message);
         // Update the particle physics
-        PhysUpdate();
+        ParallelPhysUpdate();
         // Write particles to pixel memory
         ParticlesToPixels();
         // Render circle around the mouse
