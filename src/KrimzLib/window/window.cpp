@@ -140,6 +140,10 @@ void kl::window::handleMessage() {
 		this->mouse.position = kl::int2(GET_X_LPARAM(wndMsg.lParam), GET_Y_LPARAM(wndMsg.lParam));
 		break;
 
+	case WM_MOUSEWHEEL:
+		this->mouse.scroll += GET_WHEEL_DELTA_WPARAM(wndMsg.wParam) / 120;
+		break;
+
 	default:
 		DispatchMessageA(&wndMsg);
 		break;

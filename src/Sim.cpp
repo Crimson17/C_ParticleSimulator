@@ -4,9 +4,21 @@
 int main() {
 	kl::timer timer;
 	win.start = [&]() {
+		// Console
+		kl::console::hide();
+
+		// Icon
+		win.setIcon("res/Sand.ico");
+
+		// Mouse
+		win.mouse.hide();
+
+		// Particle buffer
+		particles.resize(size_t(frame.width()) * frame.height());
+
+		// Time reset
 		timer.reset();
 		timer.interval();
-		particles.resize(size_t(frame.width()) * frame.height());
 	};
 	win.update = [&]() {
 		// Time

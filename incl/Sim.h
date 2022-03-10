@@ -5,6 +5,10 @@
 #include "Particle.h"
 
 
+// Util funcs
+int ToI(const kl::int2& pos);
+bool InFrame(const kl::int2& pos);
+
 // Window
 inline kl::window win;
 

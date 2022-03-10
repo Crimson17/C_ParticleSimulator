@@ -203,6 +203,7 @@
     <ClCompile Include="src\Particle.cpp" />
     <ClCompile Include="src\Phys.cpp" />
     <ClCompile Include="src\Sim.cpp" />
+    <ClCompile Include="src\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="incl\ImGui\imconfig.h" />

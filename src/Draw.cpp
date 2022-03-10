@@ -5,7 +5,11 @@ void Draw() {
 	// Particle draw
 	for (kl::int2 pos = 0; pos.y < frame.height(); pos.y++) {
 		for (pos.x = 0; pos.x < frame.width(); pos.x++) {
-			frame.spixel(pos, particles[size_t(pos.y * frame.width() + pos.x)].color());
+			// Pixel draw
+			frame.spixel(pos, particles[ToI(pos)].color());
+
+			// Update clear
+			particles[ToI(pos)].updated = false;
 		}
 	}
 
