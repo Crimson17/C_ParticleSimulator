@@ -2,7 +2,7 @@
 
 
 void SandPhys(const kl::int2& pos) {
-    // Sand color check
+    // Color check function
     static const std::function<bool(const kl::int2&)> MatCheck = [](const kl::int2& p) {
         switch (particles[ToI(p)].material) {
         case Particle::Material::None:
@@ -36,7 +36,7 @@ void SandPhys(const kl::int2& pos) {
 }
 
 void WaterPhys(const kl::int2& pos) {
-    // Sand color check
+    // Color check function
     static const std::function<bool(const kl::int2&)> MatCheck = [](const kl::int2& p) {
         switch (particles[ToI(p)].material) {
         case Particle::Material::None:
@@ -69,19 +69,26 @@ void WaterPhys(const kl::int2& pos) {
         std::swap(particles[ToI(pos)], particles[ToI(posDownR)]);
     }
 
-    // Left
-    else if (pos.x > 0 && MatCheck(posLeft)) {
-        std::swap(particles[ToI(pos)], particles[ToI(posLeft)]);
+    // Rand horiz direction
+    else {
+        // Rand direction
+        const bool left = kl::random::BOOL();
+
+        // Left
+        if (left && pos.x > 0 && MatCheck(posLeft)) {
+            std::swap(particles[ToI(pos)], particles[ToI(posLeft)]);
+        }
+
+        // Right
+        else if (pos.x < (frame.width() - 1) && MatCheck(posRight)) {
+            std::swap(particles[ToI(pos)], particles[ToI(posRight)]);
+        }
+
+        // Left again
+        else if (pos.x > 0 && MatCheck(posLeft)) {
+            std::swap(particles[ToI(pos)], particles[ToI(posLeft)]);
+        }
     }
-
-    // Right
-    else if (pos.x < (frame.width() - 1) && MatCheck(posRight)) {
-        std::swap(particles[ToI(pos)], particles[ToI(posRight)]);
-    }
-}
-
-void RockPhys(const kl::int2& pos) {
-
 }
 
 void MaterialPhys(const kl::int2& pos) {
@@ -94,10 +101,6 @@ void MaterialPhys(const kl::int2& pos) {
 
         case Particle::Material::Water:
             WaterPhys(pos);
-            break;
-
-        case Particle::Material::Rock:
-            RockPhys(pos);
             break;
         }
         particles[index].updated = true;

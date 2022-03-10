@@ -15,7 +15,6 @@ public:
 
 public:
 	Material material;
-	kl::float2 velocity;
 	bool updated;
 
 	Particle();
