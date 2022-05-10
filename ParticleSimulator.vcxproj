@@ -19,106 +19,93 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="incl\KrimzLib\color\color.h" />
-    <ClInclude Include="incl\KrimzLib\color\image.h" />
-    <ClInclude Include="incl\KrimzLib\dx\cbuffer.h" />
-    <ClInclude Include="incl\KrimzLib\dx\dbuffer.h" />
-    <ClInclude Include="incl\KrimzLib\dx\fbuffer.h" />
-    <ClInclude Include="incl\KrimzLib\dx\gpu.h" />
-    <ClInclude Include="incl\KrimzLib\dx\ibuffer.h" />
-    <ClInclude Include="incl\KrimzLib\dx\mesh.h" />
-    <ClInclude Include="incl\KrimzLib\dx\raster.h" />
-    <ClInclude Include="incl\KrimzLib\dx\sampler.h" />
-    <ClInclude Include="incl\KrimzLib\dx\sbuffer.h" />
-    <ClInclude Include="incl\KrimzLib\dx\shaders.h" />
-    <ClInclude Include="incl\KrimzLib\dx\texture.h" />
-    <ClInclude Include="incl\KrimzLib\entity\entity.h" />
-    <ClInclude Include="incl\KrimzLib\geometry\plane.h" />
-    <ClInclude Include="incl\KrimzLib\geometry\ray.h" />
-    <ClInclude Include="incl\KrimzLib\geometry\sphere.h" />
-    <ClInclude Include="incl\KrimzLib\geometry\triangle.h" />
-    <ClInclude Include="incl\KrimzLib\geometry\vertex.h" />
-    <ClInclude Include="incl\KrimzLib\igui\igui.h" />
-    <ClInclude Include="incl\KrimzLib\KrimzLib.hpp" />
-    <ClInclude Include="incl\KrimzLib\light\ambient.h" />
-    <ClInclude Include="incl\KrimzLib\light\direct.h" />
-    <ClInclude Include="incl\KrimzLib\math\float2.h" />
-    <ClInclude Include="incl\KrimzLib\math\float3.h" />
-    <ClInclude Include="incl\KrimzLib\math\float4.h" />
-    <ClInclude Include="incl\KrimzLib\math\int2.h" />
-    <ClInclude Include="incl\KrimzLib\math\int3.h" />
-    <ClInclude Include="incl\KrimzLib\math\int4.h" />
-    <ClInclude Include="incl\KrimzLib\math\mat3.h" />
-    <ClInclude Include="incl\KrimzLib\math\mat4.h" />
-    <ClInclude Include="incl\KrimzLib\math\math.h" />
-    <ClInclude Include="incl\KrimzLib\memory\pbuffer.h" />
-    <ClInclude Include="incl\KrimzLib\renderer\camera.h" />
-    <ClInclude Include="incl\KrimzLib\renderer\renderer.h" />
-    <ClInclude Include="incl\KrimzLib\renderer\skybox.h" />
-    <ClInclude Include="incl\KrimzLib\utility\console.h" />
-    <ClInclude Include="incl\KrimzLib\utility\convert.h" />
-    <ClInclude Include="incl\KrimzLib\utility\file.h" />
-    <ClInclude Include="incl\KrimzLib\utility\random.h" />
-    <ClInclude Include="incl\KrimzLib\utility\thread.h" />
-    <ClInclude Include="incl\KrimzLib\utility\time.h" />
-    <ClInclude Include="incl\KrimzLib\utility\web.h" />
-    <ClInclude Include="incl\KrimzLib\window\keys.h" />
-    <ClInclude Include="incl\KrimzLib\window\mouse.h" />
-    <ClInclude Include="incl\KrimzLib\window\window.h" />
-    <ClInclude Include="incl\Particle.h" />
-    <ClInclude Include="incl\Sim.h" />
+    <ClCompile Include="KLibrary\geometry\plane.cpp" />
+    <ClCompile Include="KLibrary\geometry\ray.cpp" />
+    <ClCompile Include="KLibrary\geometry\sphere.cpp" />
+    <ClCompile Include="KLibrary\geometry\triangle.cpp" />
+    <ClCompile Include="KLibrary\geometry\vertex.cpp" />
+    <ClCompile Include="KLibrary\gpu\buffer\constant_buffer.cpp" />
+    <ClCompile Include="KLibrary\gpu\buffer\gpu_buffer.cpp" />
+    <ClCompile Include="KLibrary\gpu\gpu.cpp" />
+    <ClCompile Include="KLibrary\gpu\states\depth_state.cpp" />
+    <ClCompile Include="KLibrary\gpu\states\raster_state.cpp" />
+    <ClCompile Include="KLibrary\gpu\states\sampler_state.cpp" />
+    <ClCompile Include="KLibrary\gpu\utility\shaders.cpp" />
+    <ClCompile Include="KLibrary\gpu\utility\texture.cpp" />
+    <ClCompile Include="KLibrary\gpu\utility\vbuffer.cpp" />
+    <ClCompile Include="KLibrary\gpu\views\depth_view.cpp" />
+    <ClCompile Include="KLibrary\gpu\views\shader_view.cpp" />
+    <ClCompile Include="KLibrary\gpu\views\target_view.cpp" />
+    <ClCompile Include="KLibrary\graphics\color.cpp" />
+    <ClCompile Include="KLibrary\graphics\image.cpp" />
+    <ClCompile Include="KLibrary\graphics\video.cpp" />
+    <ClCompile Include="KLibrary\math\float2.cpp" />
+    <ClCompile Include="KLibrary\math\float3.cpp" />
+    <ClCompile Include="KLibrary\math\float4.cpp" />
+    <ClCompile Include="KLibrary\math\int2.cpp" />
+    <ClCompile Include="KLibrary\math\int3.cpp" />
+    <ClCompile Include="KLibrary\math\int4.cpp" />
+    <ClCompile Include="KLibrary\math\mat3.cpp" />
+    <ClCompile Include="KLibrary\math\mat4.cpp" />
+    <ClCompile Include="KLibrary\math\math.cpp" />
+    <ClCompile Include="KLibrary\utility\console.cpp" />
+    <ClCompile Include="KLibrary\utility\convert.cpp" />
+    <ClCompile Include="KLibrary\utility\file.cpp" />
+    <ClCompile Include="KLibrary\utility\random.cpp" />
+    <ClCompile Include="KLibrary\utility\socket.cpp" />
+    <ClCompile Include="KLibrary\utility\thread.cpp" />
+    <ClCompile Include="KLibrary\utility\time.cpp" />
+    <ClCompile Include="KLibrary\utility\web.cpp" />
+    <ClCompile Include="KLibrary\view\camera.cpp" />
+    <ClCompile Include="KLibrary\window\double_buffer.cpp" />
+    <ClCompile Include="KLibrary\window\key.cpp" />
+    <ClCompile Include="KLibrary\window\keys.cpp" />
+    <ClCompile Include="KLibrary\window\mouse.cpp" />
+    <ClCompile Include="KLibrary\window\window.cpp" />
+    <ClCompile Include="source\Draw.cpp" />
+    <ClCompile Include="source\Input.cpp" />
+    <ClCompile Include="source\Particle.cpp" />
+    <ClCompile Include="source\Phys.cpp" />
+    <ClCompile Include="source\Sim.cpp" />
+    <ClCompile Include="source\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Draw.cpp" />
-    <ClCompile Include="src\Input.cpp" />
-    <ClCompile Include="src\KrimzLib\color\color.cpp" />
-    <ClCompile Include="src\KrimzLib\color\image.cpp" />
-    <ClCompile Include="src\KrimzLib\dx\cbuffer.cpp" />
-    <ClCompile Include="src\KrimzLib\dx\dbuffer.cpp" />
-    <ClCompile Include="src\KrimzLib\dx\fbuffer.cpp" />
-    <ClCompile Include="src\KrimzLib\dx\gpu.cpp" />
-    <ClCompile Include="src\KrimzLib\dx\ibuffer.cpp" />
-    <ClCompile Include="src\KrimzLib\dx\mesh.cpp" />
-    <ClCompile Include="src\KrimzLib\dx\raster.cpp" />
-    <ClCompile Include="src\KrimzLib\dx\sampler.cpp" />
-    <ClCompile Include="src\KrimzLib\dx\sbuffer.cpp" />
-    <ClCompile Include="src\KrimzLib\dx\shaders.cpp" />
-    <ClCompile Include="src\KrimzLib\dx\texture.cpp" />
-    <ClCompile Include="src\KrimzLib\entity\entity.cpp" />
-    <ClCompile Include="src\KrimzLib\geometry\plane.cpp" />
-    <ClCompile Include="src\KrimzLib\geometry\ray.cpp" />
-    <ClCompile Include="src\KrimzLib\geometry\sphere.cpp" />
-    <ClCompile Include="src\KrimzLib\geometry\triangle.cpp" />
-    <ClCompile Include="src\KrimzLib\geometry\vertex.cpp" />
-    <ClCompile Include="src\KrimzLib\igui\igui.cpp" />
-    <ClCompile Include="src\KrimzLib\light\ambient.cpp" />
-    <ClCompile Include="src\KrimzLib\light\direct.cpp" />
-    <ClCompile Include="src\KrimzLib\math\float2.cpp" />
-    <ClCompile Include="src\KrimzLib\math\float3.cpp" />
-    <ClCompile Include="src\KrimzLib\math\float4.cpp" />
-    <ClCompile Include="src\KrimzLib\math\int2.cpp" />
-    <ClCompile Include="src\KrimzLib\math\int3.cpp" />
-    <ClCompile Include="src\KrimzLib\math\int4.cpp" />
-    <ClCompile Include="src\KrimzLib\math\mat3.cpp" />
-    <ClCompile Include="src\KrimzLib\math\mat4.cpp" />
-    <ClCompile Include="src\KrimzLib\math\math.cpp" />
-    <ClCompile Include="src\KrimzLib\renderer\camera.cpp" />
-    <ClCompile Include="src\KrimzLib\renderer\renderer.cpp" />
-    <ClCompile Include="src\KrimzLib\renderer\skybox.cpp" />
-    <ClCompile Include="src\KrimzLib\utility\console.cpp" />
-    <ClCompile Include="src\KrimzLib\utility\convert.cpp" />
-    <ClCompile Include="src\KrimzLib\utility\file.cpp" />
-    <ClCompile Include="src\KrimzLib\utility\random.cpp" />
-    <ClCompile Include="src\KrimzLib\utility\thread.cpp" />
-    <ClCompile Include="src\KrimzLib\utility\time.cpp" />
-    <ClCompile Include="src\KrimzLib\utility\web.cpp" />
-    <ClCompile Include="src\KrimzLib\window\keys.cpp" />
-    <ClCompile Include="src\KrimzLib\window\mouse.cpp" />
-    <ClCompile Include="src\KrimzLib\window\window.cpp" />
-    <ClCompile Include="src\Particle.cpp" />
-    <ClCompile Include="src\Phys.cpp" />
-    <ClCompile Include="src\Sim.cpp" />
-    <ClCompile Include="src\Util.cpp" />
+    <ClInclude Include="KLibrary\geometry\plane.h" />
+    <ClInclude Include="KLibrary\geometry\ray.h" />
+    <ClInclude Include="KLibrary\geometry\sphere.h" />
+    <ClInclude Include="KLibrary\geometry\triangle.h" />
+    <ClInclude Include="KLibrary\geometry\vertex.h" />
+    <ClInclude Include="KLibrary\gpu\gpu.h" />
+    <ClInclude Include="KLibrary\graphics\color.h" />
+    <ClInclude Include="KLibrary\graphics\image.h" />
+    <ClInclude Include="KLibrary\graphics\video.h" />
+    <ClInclude Include="KLibrary\KrimzLib.h" />
+    <ClInclude Include="KLibrary\libspec\using.h" />
+    <ClInclude Include="KLibrary\math\float2.h" />
+    <ClInclude Include="KLibrary\math\float3.h" />
+    <ClInclude Include="KLibrary\math\float4.h" />
+    <ClInclude Include="KLibrary\math\int2.h" />
+    <ClInclude Include="KLibrary\math\int3.h" />
+    <ClInclude Include="KLibrary\math\int4.h" />
+    <ClInclude Include="KLibrary\math\mat3.h" />
+    <ClInclude Include="KLibrary\math\mat4.h" />
+    <ClInclude Include="KLibrary\math\math.h" />
+    <ClInclude Include="KLibrary\utility\console.h" />
+    <ClInclude Include="KLibrary\utility\convert.h" />
+    <ClInclude Include="KLibrary\utility\file.h" />
+    <ClInclude Include="KLibrary\utility\random.h" />
+    <ClInclude Include="KLibrary\utility\socket.h" />
+    <ClInclude Include="KLibrary\utility\thread.h" />
+    <ClInclude Include="KLibrary\utility\time.h" />
+    <ClInclude Include="KLibrary\utility\web.h" />
+    <ClInclude Include="KLibrary\view\camera.h" />
+    <ClInclude Include="KLibrary\window\double_buffer.h" />
+    <ClInclude Include="KLibrary\window\key.h" />
+    <ClInclude Include="KLibrary\window\keys.h" />
+    <ClInclude Include="KLibrary\window\mouse.h" />
+    <ClInclude Include="KLibrary\window\window.h" />
+    <ClInclude Include="source\Particle.h" />
+    <ClInclude Include="source\Sim.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -174,15 +161,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)inter\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)inter\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)inter\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)inter\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -190,8 +185,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)incl\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)KLibrary\;$(SolutionDir)source\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -206,8 +204,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)incl\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)KLibrary\;$(SolutionDir)source\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -222,8 +222,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)incl\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)KLibrary\;$(SolutionDir)source\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -238,8 +241,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)incl\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)KLibrary\;$(SolutionDir)source\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
