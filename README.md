@@ -1,1 +1,2 @@
-# Simple C++ Particle Simulator
+# C++ Particle Simulator
+My old C++ project
