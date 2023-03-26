@@ -1,22 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParticleSimulator", "ParticleSimulator.vcxproj", "{DB0A66CA-A1DE-4536-B033-5E571D4B7129}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Particles2D", "Particles2D.vcxproj", "{DB0A66CA-A1DE-4536-B033-5E571D4B7129}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
-		Release|Win32 = Release|Win32
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DB0A66CA-A1DE-4536-B033-5E571D4B7129}.Debug|Win32.ActiveCfg = Debug|Win32
-		{DB0A66CA-A1DE-4536-B033-5E571D4B7129}.Debug|Win32.Build.0 = Debug|Win32
 		{DB0A66CA-A1DE-4536-B033-5E571D4B7129}.Debug|x64.ActiveCfg = Debug|x64
 		{DB0A66CA-A1DE-4536-B033-5E571D4B7129}.Debug|x64.Build.0 = Debug|x64
-		{DB0A66CA-A1DE-4536-B033-5E571D4B7129}.Release|Win32.ActiveCfg = Release|Win32
-		{DB0A66CA-A1DE-4536-B033-5E571D4B7129}.Release|Win32.Build.0 = Release|Win32
 		{DB0A66CA-A1DE-4536-B033-5E571D4B7129}.Release|x64.ActiveCfg = Release|x64
 		{DB0A66CA-A1DE-4536-B033-5E571D4B7129}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
