@@ -18,13 +18,8 @@
 #include <d3d11.h>
 
 // Undef windows garbage defines
-#define byte _KL_UNUSED_
-
 #undef min
 #undef max
-
-#undef near
-#undef far
 
 // Linking libs
 #pragma comment(lib, "Ws2_32.lib")
