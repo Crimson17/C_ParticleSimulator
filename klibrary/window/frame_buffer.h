@@ -2,6 +2,8 @@
 
 #include "window/window.h"
 
+#include <mutex>
+
 
 namespace kl {
     class frame_buffer
