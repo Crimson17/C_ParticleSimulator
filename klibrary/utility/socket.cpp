@@ -66,7 +66,7 @@ std::string kl::socket::get_address() const
 
 void kl::socket::set_address(const std::string& address)
 {
-    assert(!inet_pton(AF_INET, address.c_str(), &address_.sin_addr) != 1, "Could not convert address");
+    assert(inet_pton(AF_INET, address.c_str(), &address_.sin_addr) == 1, "Could not convert address");
 }
 
 uint32_t kl::socket::get_port() const

@@ -22,27 +22,19 @@ void kl::get()
     std::cin.get();
 }
 
-bool kl::warning(const bool state, const std::string_view& message, const bool wait)
+bool kl::warning(const bool error, const std::string_view& message)
 {
-    if (state) {
-        print(colors::orange, "Warning: ", message);
-        if (wait) {
-            console::wait_for_any();
-        }
-        print<false>(colors::console);
+    if (error) {
+        print(colors::orange, "Warning: ", message, colors::console);
     }
-    return state;
+    return error;
 }
 
-void kl::assert(const bool state, const std::string_view& message, const bool wait)
+void kl::assert(const bool state, const std::string_view& message)
 {
     if (!state) {
-        print(colors::red, "Error: ", message);
-        if (wait) {
-            console::wait_for_any();
-        }
-        print<false>(colors::console);
-        exit(0);
+        print(colors::red, "Error: ", message, colors::console);
+        exit(1);
     }
 }
 
