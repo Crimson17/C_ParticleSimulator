@@ -6,8 +6,8 @@
 namespace kl {
     void get();
 
-    bool warning(bool occured, const std::string& message, bool wait = false);
-    void assert(bool occured, const std::string& message, bool wait = true);
+    bool warning(bool occured, const std::string_view& message, bool wait = false);
+    void assert(bool occured, const std::string_view& message, bool wait = true);
 }
 
 namespace kl::console {

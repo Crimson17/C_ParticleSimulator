@@ -17,8 +17,8 @@ kl::gpu::gpu()
         nullptr,
         &context_
     );
-    assert(!device_, "Failed to create device");
-    assert(!context_, "Failed to create device context");
+    assert(device_, "Failed to create device");
+    assert(context_, "Failed to create device context");
 
     for (int i = 0; i < cbuffer_predefined_size; i++) {
         compute_const_buffers_[i] = new_const_buffer((i + 1) * 16);
@@ -57,9 +57,9 @@ kl::gpu::gpu(const HWND window)
         nullptr,
         &context_
     );
-    assert(!device_, "Failed to create device");
-    assert(!context_, "Failed to create device context");
-    assert(!chain_, "Failed to create swapchain");
+    assert(device_, "Failed to create device");
+    assert(context_, "Failed to create device context");
+    assert(chain_, "Failed to create swapchain");
 
     context_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
